@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
+import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FieldReact from '../../react/basic/field-react.jsx';
-import DropdownEnumReact from '../../react/basic/dropdown-enum-react.jsx';
+import FieldReact from './react/field-react.jsx';
+import DropdownEnumReact from './react/dropdown-enum-react.jsx';
 
 @noView()
 @inject(Element)
@@ -30,7 +30,7 @@ export class DropdownEnum {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', selections: this.items };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <DropdownEnumReact value={this.value} options={this.options} onChange={this.handleValueChange}/>
+                <DropdownEnumReact value={this.value} options={this.options} onChange={this.handleValueChange} />
             </FieldReact>,
             this.element
         );
