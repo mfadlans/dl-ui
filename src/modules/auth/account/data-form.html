@@ -1,0 +1,8 @@
+<template>
+    <require from="./profile"></require>
+    <form class="form-horizontal">
+        <textbox    label="Username"    value.bind="data.username"      error.bind="error.username"     read-only.bind="(readOnly || isEdit)"></textbox>
+        <textbox    label="Password"    value.bind="data.password"      error.bind="error.password"     read-only.bind="readOnly"></textbox>
+        <profile data.bind="data.profile" error.bind="error.profile"></profile>
+    </form>
+</template>

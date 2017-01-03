@@ -27,6 +27,7 @@ export function configure(config) {
         './customs/auto-suggests/purchase-order-auto-suggest',
         './customs/auto-suggests/purchase-order-external-auto-suggest',
         './customs/auto-suggests/purchase-request-auto-suggest',
+        './customs/auto-suggests/purchase-request-auto-suggest-posted',
         './customs/auto-suggests/supplier-auto-suggest',
         './customs/auto-suggests/thread-auto-suggest',
         './customs/auto-suggests/unit-auto-suggest',
@@ -36,6 +37,7 @@ export function configure(config) {
         './customs/auto-suggests/uster-auto-suggest',
         './customs/auto-suggests/vat-auto-suggest',
 
+        './customs/collections/role/role-permission-item-collection',
         './customs/collections/delivery-order/delivery-order-item-collection',
         './customs/collections/purchase-order/purchase-order-item-collection',
         './customs/collections/production-order/production-order-detail-collection',

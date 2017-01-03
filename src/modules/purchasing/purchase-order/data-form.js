@@ -46,7 +46,7 @@ export class DataForm {
     }
 
     prChanged(e) {
-        var pr = e.detail || {};
+        var pr = e.detail || {};   
         if (pr) {
             this.data.purchaseRequestId = pr._id;
             var selectedItem = pr.items || [];
@@ -62,11 +62,13 @@ export class DataForm {
 
             }
             this.data.items = _items;
+            console.log(this.data);
         }
         else
         {
             this.data.remark="";
             this.data.items=[];
+            console.log("this.data.items cleared");
         }
      }
 

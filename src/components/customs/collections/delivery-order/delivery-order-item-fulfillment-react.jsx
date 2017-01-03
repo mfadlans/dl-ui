@@ -5,7 +5,7 @@ import RadiobuttonReact from '../../../form/basic/react/radiobutton-react.jsx';
 import NumericReact from '../../../form/basic/react/numeric-react.jsx';
 import UomAutoSuggestReact from '../../auto-suggests/react/uom-auto-suggest-react.jsx';
 import ProductAutoSuggestReact from '../../auto-suggests/react/product-auto-suggest-react.jsx';
-import PurchaseRequestAutoSuggestReact from '../../auto-suggests/react/purchase-request-auto-suggest-react.jsx';
+import PurchaseRequestAutoSuggestReactPosted from '../../auto-suggests/react/purchase-request-auto-suggest-react-posted.jsx';
 
 'use strict';
 
@@ -74,7 +74,7 @@ export default class DeliveryOrderItemFulfillmentReact extends React.Component {
         return (
             <tr >
                 <td>
-                    <PurchaseRequestAutoSuggestReact value={this.state.value.purchaseOrder.purchaseRequest} options={readOnlyOptions} />
+                    <PurchaseRequestAutoSuggestReactPosted value={this.state.value.purchaseOrder.purchaseRequest} options={readOnlyOptions} />
                 </td>
                 <td>
                     <ProductAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} />

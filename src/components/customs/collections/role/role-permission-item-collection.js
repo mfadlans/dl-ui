@@ -2,41 +2,51 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FieldReact from './react/field-react.jsx';
-import DropdownEnumReact from './react/dropdown-enum-react.jsx';
+import RolePermissionItemCollectionReact from './role-permission-item-collection-react.jsx';
+
 
 @noView()
 @inject(Element)
-@customElement('dropdown-enum')
-export class DropdownEnum {
+@customElement('role-permission-item-collection')
+export class RolePermissionItemCollection {
 
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) items;
 
     reactComponent = {};
     constructor(element) {
         this.element = element;
-        this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleItemAdd = this.handleItemAdd.bind(this);
+        this.handleItemRemove = this.handleItemRemove.bind(this);
     }
 
-    handleValueChange(value) {
-        this.value = value;
+    handleItemAdd() {
+
+        this.value.push({
+            unit: { toString: function () { return '' } },
+            permission: 4
+        });
+        this.bind();
+    }
+
+    handleItemRemove(item) {
+        var itemIndex = this.value.indexOf(item);
+        this.value.splice(itemIndex, 1);
+        this.bind();
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', selections: this.items };
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <FieldReact label={this.label} error={this.error}>
-                <DropdownEnumReact value={this.value} options={this.options} onChange={this.handleValueChange} />
-            </FieldReact>,
+            <RolePermissionItemCollectionReact value={this.value} error={this.error} options={this.options}></RolePermissionItemCollectionReact>,
             this.element
         );
     }
 
     bind() {
+        this.value = this.value || [];
+        this.error = this.error || [];
         this.render();
     }
 

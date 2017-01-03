@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import PoItemCollectionReact from './purchase-order-item-collection-react.jsx';
-
+import PurchaseOrderItemCollectionReact from './purchase-order-item-collection-react.jsx';
 
 @noView()
 @inject(Element)
@@ -44,8 +43,9 @@ export class PurchaseOrderItemCollection {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
+        console.log(this.value);
         this.reactComponent = ReactDOM.render(
-            <PoItemCollectionReact value={this.value} error={this.error} options={this.options}></PoItemCollectionReact>,
+            <PurchaseOrderItemCollectionReact value={this.value} error={this.error} options={this.options}></PurchaseOrderItemCollectionReact>,
             this.element
         );
     }
