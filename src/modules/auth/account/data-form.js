@@ -16,10 +16,10 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    activate() {
+    activate() { 
     }
 
-    attached() {
+    attached() { 
     }
 
 } 

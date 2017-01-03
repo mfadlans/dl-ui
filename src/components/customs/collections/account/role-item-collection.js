@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import PurchaseOrderItemCollectionReact from './purchase-order-item-collection-react.jsx';
+import RoleItemCollectionReact from './role-item-collection-react.jsx';
+
 
 @noView()
 @inject(Element)
-@customElement('purchase-order-item-collection')
-export class PurchaseOrderItemCollection {
+@customElement('role-item-collection')
+export class RoleItemCollection {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) isSplit;
 
     reactComponent = {};
     constructor(element) {
@@ -22,16 +22,7 @@ export class PurchaseOrderItemCollection {
     }
 
     handleItemAdd() {
-
-        this.value.push({
-            product: { toString: function () { return '' } },
-            defaultQuantity: 0,
-            defaultMeasurement: '',
-            dealQuantity: 0,
-            dealMeasurement: '',
-            price: 0,
-            description: ''
-        });
+        this.value.push({ toString: function () { return '' } });
         this.bind();
     }
 
@@ -42,9 +33,9 @@ export class PurchaseOrderItemCollection {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };        
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <PurchaseOrderItemCollectionReact value={this.value} error={this.error} options={this.options}></PurchaseOrderItemCollectionReact>,
+            <RoleItemCollectionReact value={this.value} error={this.error} options={this.options}></RoleItemCollectionReact>,
             this.element
         );
     }

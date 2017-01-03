@@ -8,8 +8,8 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = { profile: {}, units: [] };
-        this.error ={ profile:{firstname:"test error firstname"}};
+        this.data = { profile: {}, roles: [] };
+        this.error = { profile: {},roles: [] };
     }
 
     activate(params) {
@@ -21,13 +21,12 @@ export class Create {
     }
 
     save() {
-        console.log(this.data);
-        // this.service.create(this.data)
-        //     .then(result => {
-        //         this.list();
-        //     })
-        //     .catch(e => {
-        //         this.error = e;
-        //     })
+        this.service.create(this.data)
+            .then(result => {
+                this.list();
+            })
+            .catch(e => {
+                this.error = e;
+            })
     }
 }

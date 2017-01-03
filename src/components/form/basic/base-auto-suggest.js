@@ -30,7 +30,6 @@ export default class BaseAutoSuggest {
 
     render() {
         this.options = this.options || {};
-        // console.log(this.filter);
         if (this.filter)
             this.options.filter = this.filter;
         else

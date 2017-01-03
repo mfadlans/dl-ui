@@ -1,14 +1,15 @@
 import React from 'react';
-import RolePermissionItemReact from './role-permission-item-react.jsx';
+import RoleItemReact from './role-item-react.jsx';
 
 'use strict';
 
-export default class RolePermissionItemCollectionReact extends React.Component {
+export default class RoleItemCollectionReact extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleItemAdd = this.handleItemAdd.bind(this);
         this.handleItemRemove = this.handleItemRemove.bind(this);
+        this.handleItemChange = this.handleItemChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -24,11 +25,7 @@ export default class RolePermissionItemCollectionReact extends React.Component {
     }
 
     handleItemAdd() {
-        var newItem = {
-            unit: { toString: function () { return '' } },
-            unitId: { toString: function () { return '' } },
-            permission: 1
-        };
+        var newItem = { toString: function () { return '' } };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });
 
@@ -43,31 +40,29 @@ export default class RolePermissionItemCollectionReact extends React.Component {
         this.setState({ value: value });
     }
 
+    handleItemChange(item) { 
+        this.setState({ value: this.state.value });
+    }
+
     render() {
         var items = (this.state.value || []).map(function (item, index) {
-            var error = this.state.error[index] || {};
+            var error = this.state.error[index] || null;
             return (
-                <RolePermissionItemReact key={"__item" + index} value={item} error={error} options={this.state.options} onRemove={this.handleItemRemove}></RolePermissionItemReact>
+                <RoleItemReact key={"__item" + index} value={item} error={error} options={this.state.options} onRemove={this.handleItemRemove} onChange={this.handleItemChange}></RoleItemReact>
             );
         }.bind(this))
 
-        var addButton = <button className="btn btn-success" onClick={this.handleItemAdd}>add</button>;
+        var addButton = <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>;
         if (this.state.options.readOnly)
             addButton = <span></span>;
         return (
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="72%" rowSpan="2">Unit</th>
-                        <th width="18%" colSpan="3">Permission</th> 
-                        <th width="10%" rowSpan="2">
+                        <th width="90%">Roles</th>
+                        <th width="10%">
                             {addButton}
                         </th>
-                    </tr>
-                    <tr>
-                        <th width="6%">R</th> 
-                        <th width="6%">W</th> 
-                        <th width="6%">X</th> 
                     </tr>
                 </thead>
                 <tbody>

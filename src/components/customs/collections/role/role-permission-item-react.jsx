@@ -1,10 +1,9 @@
 import React from 'react';
-import UnitAutoSuggestReact from '../../auto-suggests/react/unit-auto-suggest-react.jsx';
-import SelectRoles from './select-roles.jsx';
+import UnitAutoSuggestReact from '../../auto-suggests/react/unit-auto-suggest-react.jsx'; 
 
 'use strict';
 
-export default class AccountUnitItemReact extends React.Component {
+export default class RolePermissionItemReact extends React.Component {
     constructor(props) {
         super(props);
 
@@ -45,7 +44,6 @@ export default class AccountUnitItemReact extends React.Component {
         // }
         var selectedValues = $.map(this.refs, function (value, index) { return value }).filter(option => option.checked).map(option => parseInt(option.value, 10));
         var sum = selectedValues.reduce((prev, curr, index) => { return prev + curr; }, 0);
-        console.log(sum);
         var value = this.state.value;
         value.permission = sum;
         this.handleValueChange(value);

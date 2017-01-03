@@ -30,11 +30,9 @@ export class FormControls {
     };
 
     showData() {
-        console.log(this.data);
     }
 
     dialogPrompt() {
-        console.log(CustomView);
         this.dialog.prompt("prompt title", "prompt message")
             .then(response => {
                 console.log(response);

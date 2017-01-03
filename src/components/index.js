@@ -10,6 +10,7 @@ export function configure(config) {
         './form/basic/multiline',
         './form/basic/numeric',
         './form/basic/radiobutton',
+        './form/basic/password',
         './form/basic/textbox',
         './form/basic/auto-suggest',
 
@@ -37,6 +38,7 @@ export function configure(config) {
         './customs/auto-suggests/uster-auto-suggest',
         './customs/auto-suggests/vat-auto-suggest',
 
+        './customs/collections/account/role-item-collection',
         './customs/collections/role/role-permission-item-collection',
         './customs/collections/delivery-order/delivery-order-item-collection',
         './customs/collections/purchase-order/purchase-order-item-collection',

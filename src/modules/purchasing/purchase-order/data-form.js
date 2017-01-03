@@ -62,13 +62,11 @@ export class DataForm {
 
             }
             this.data.items = _items;
-            console.log(this.data);
         }
         else
         {
             this.data.remark="";
             this.data.items=[];
-            console.log("this.data.items cleared");
         }
      }
 

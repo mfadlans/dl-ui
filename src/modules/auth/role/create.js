@@ -21,13 +21,12 @@ export class Create {
     }
 
     save() {
-        console.log(this.data);
-        // this.service.create(this.data)
-        //     .then(result => {
-        //         this.list();
-        //     })
-        //     .catch(e => {
-        //         this.error = e;
-        //     })
+        this.service.create(this.data)
+            .then(result => {
+                this.list();
+            })
+            .catch(e => {
+                this.error = e;
+            })
     }
 }
