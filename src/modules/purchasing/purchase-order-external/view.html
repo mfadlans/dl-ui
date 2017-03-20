@@ -1,4 +1,11 @@
-<template>  
+<template>
+  <require from="./data-form"></require>
+  <data-form title="Detail Purchase Order External" pr-read-only="true" read-only="true"></data-form> 
+</template>
+
+
+
+<!--<template>  
     <h1 class="page-header">Detail Purchase Order External</h1>
     <require from="./data-form"></require>
     <block>
@@ -13,4 +20,4 @@
             <a click.delegate="close()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && isArriving && !data.isClosed">Close</a>
         </div>
     </block>
-</template>
+</template>-->

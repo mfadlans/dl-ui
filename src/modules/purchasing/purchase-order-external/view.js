@@ -38,7 +38,7 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
@@ -55,7 +55,7 @@ export class View {
             item.showDetails = true;
     }
 
-    cancel() {
+    cancelCallback(event) {
         this.service.cancel(this.poExId).then(result => {
             this.list();
         }).catch(e => {

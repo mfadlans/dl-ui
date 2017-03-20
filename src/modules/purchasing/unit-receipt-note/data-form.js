@@ -1,5 +1,8 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
+var UnitLoader = require('../../../loader/unit-loader');
+var SupplierLoader = require('../../../loader/supplier-loader');
+var DeliveryOrderLoader = require('../../../loader/delivery-order-loader');
 
 @inject(BindingEngine, Element)
 export class DataForm {
@@ -10,6 +13,18 @@ export class DataForm {
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    get deliveryOrderLoader() {
+      return DeliveryOrderLoader;
     }
 
     @computedFrom("data._id")

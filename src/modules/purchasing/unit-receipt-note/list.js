@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -9,6 +10,45 @@ export class List {
     dataToBePrinting = [];
     keyword = '';
     info = { page: 1, keyword: '' };
+
+    rowFormatter(data, index) {
+        if (data.isPosted)
+            return { classes: "success" }
+        else
+            return {}
+    }
+
+    context = ["detail", "cetak"]
+
+    columns = [
+      { field: "unit.division.name", title: "Unit" },
+      { field: "no", title: "No. Bon Unit" },
+      { field: "date", title: "Tanggal Bon Unit", formatter: function(value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      } },
+      { field: "supplier.name", title: "Supplier" },
+      { field: "deliveryOrder.no", title: "No. Surat Jalan" },
+    ];
+
+    loader = (info) => {
+        var order = {};
+        if (info.sort)
+            order[info.sort] = info.order;
+        var arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order
+        }
+
+        return this.service.search(arg)
+            .then(result => {
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
+            });
+    }
 
     today = new Date();
 
@@ -19,82 +59,97 @@ export class List {
         this.router = router;
     }
 
-    async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        this.data = result.data;
-        this.info = result.info;
-    }
-
-    loadPage() {
-        var keyword = this.info.keyword;
-        this.service.search(this.info)
-            .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-                this.info.keyword = keyword;
-            })
-    }
-
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.loadPage();
-    }
-
-    addIsPrint() {
-        this.dataToBePrinting = [];
-        for (var poExternal of this.data) {
-            poExternal.isPrint = false;
+    contextClickCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+            case "detail":
+                this.router.navigateToRoute('view', { id: data._id });
+                break;
+            case "print":
+                this.service.getPdfById(data._id);
+                break;
         }
-    }
-
-    pushDataToBePrinting(item) {
-
-        if (item.isPrint) {
-            this.dataToBePrinting.push(item);
-        }
-        else {
-            var index = this.dataToBePrinting.indexOf(item);
-            this.dataToBePrinting.splice(index, 1);
-        }
-
-        this.calculateTotal();
-    }
-
-    back() {
-        this.router.navigateToRoute('list');
-    }
-
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
     }
 
     create() {
         this.router.navigateToRoute('create');
     }
 
-    tooglePrintTrue() {
-        this.isPrint = true;
+    // async activate() {
+    //     this.info.keyword = '';
+    //     var result = await this.service.search(this.info);
+    //     this.data = result.data;
+    //     this.info = result.info;
+    // }
 
-        this.newStatus();
-    }
+    // loadPage() {
+    //     var keyword = this.info.keyword;
+    //     this.service.search(this.info)
+    //         .then(result => {
+    //             this.data = result.data;
+    //             this.info = result.info;
+    //             this.info.keyword = keyword;
+    //         })
+    // }
 
-    tooglePrintFalse() {
-        this.isPrint = false;
+    // changePage(e) {
+    //     var page = e.detail;
+    //     this.info.page = page;
+    //     this.loadPage();
+    // }
 
-        this.newStatus();
-    }
+    // addIsPrint() {
+    //     this.dataToBePrinting = [];
+    //     for (var poExternal of this.data) {
+    //         poExternal.isPrint = false;
+    //     }
+    // }
 
-    newStatus() {
-        this.dataToBePrinting = [];
+    // pushDataToBePrinting(item) {
 
-        for (var item of this.data) {
-            item.isPrint = false;
-        }
-    }
+    //     if (item.isPrint) {
+    //         this.dataToBePrinting.push(item);
+    //     }
+    //     else {
+    //         var index = this.dataToBePrinting.indexOf(item);
+    //         this.dataToBePrinting.splice(index, 1);
+    //     }
 
-    getPDF(data) {
-        this.service.getPdfById(data._id);
-    }
+    //     this.calculateTotal();
+    // }
+
+    // back() {
+    //     this.router.navigateToRoute('list');
+    // }
+
+    // view(data) {
+    //     this.router.navigateToRoute('view', { id: data._id });
+    // }
+
+
+
+    // tooglePrintTrue() {
+    //     this.isPrint = true;
+
+    //     this.newStatus();
+    // }
+
+    // tooglePrintFalse() {
+    //     this.isPrint = false;
+
+    //     this.newStatus();
+    // }
+
+    // newStatus() {
+    //     this.dataToBePrinting = [];
+
+    //     for (var item of this.data) {
+    //         item.isPrint = false;
+    //     }
+    // }
+
+    // getPDF(data) {
+    //     this.service.getPdfById(data._id);
+    // }
 }

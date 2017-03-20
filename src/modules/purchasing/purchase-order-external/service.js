@@ -55,9 +55,4 @@ export class Service extends RestService {
         var endpoint = `purchase-orders/externals/unpost/${id}`;
         return super.put(endpoint);
     }
-
-    close(id) {
-        var endpoint = `purchase-orders/externals/close/${id}`;
-        return super.put(endpoint);
-    }
 }

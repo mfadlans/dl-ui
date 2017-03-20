@@ -1,4 +1,23 @@
 <template>
+    <h1 class="page-header">Bon Terima Unit</h1>
+    <au-table 
+        view-model.ref="table" 
+        data.bind="loader" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextClickCallback($event)"
+        row-formatter.bind="rowFormatter">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
+        </div>
+  </au-table>
+</template>
+
+
+
+<!--<template>
      
     <div class="display-wrapper">
         <h1 class="page-header">Bon Terima Unit</h1>
@@ -19,18 +38,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="row">
-            <div class="col-sm-3" >
-                <div class="gray-box">
-                    <span class="control-label padding-right-10">Cetak</span>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" click.delegate="tooglePrintTrue()">Ya</button>
-                        <button type="button" class="btn btn-default" click.delegate="tooglePrintFalse()">Tidak</button>
-                    </div>
-                    <button type="button" class="btn btn-success ${isPrint ? '' : 'hide'}" click.delegate="print()">Cetak</button>
-                </div>
-            </div>
-        </div>-->
         <div>
             <table class="table table-bordered">
                 <thead>
@@ -65,4 +72,4 @@
 
 		<hr/>
     </div>
-</template>
+</template>-->

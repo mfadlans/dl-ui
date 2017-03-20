@@ -12,17 +12,17 @@ export class Create {
     }
 
     activate() {
-        this.data.paymentDueDays = 0;
+        // this.data.paymentDueDays = 0;
     }
 
-    back() {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    save() {
+    saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
-                this.back();
+                this. cancelCallback(event);
             })
             .catch(e => {
                 this.error = e;

@@ -8,9 +8,11 @@ var VatLoader = require('../../../loader/vat-loader');
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
+    @bindable prReadOnly = false;
     @bindable data = {};
     @bindable error = {};
     @bindable title;
+    @bindable purchaseRequest;
     formOptions = {
       cancelText: "Kembali",
         saveText: "Simpan",
@@ -34,93 +36,87 @@ export class DataForm {
     }
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
+    
     freightCostByOptions = ['Penjual', 'Pembeli'];
 
-    constructor(bindingEngine, element) {
-        this.bindingEngine = bindingEngine;
-        this.element = element;
-    }
+    PRColumns = [
+      { header: "Nomor PR", value: "items" },
+    ]
+
+    // constructor(bindingEngine, element) {
+    //     this.bindingEngine = bindingEngine;
+    //     this.element = element;
+    // }
 
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
 
-    // attached() {
-    //     if (this.data.items) {
-    //         this.data.items.forEach(item => {
-    //             item.showDetails = false
-    //         })
+
+    // addItem() {
+    //     this.data.items = this.data.items ? this.data.items : [];
+    //     this.data.items.push({ showDetails: false });
+    // }
+
+    // removeItem(item) {
+    //     var itemIndex = this.data.items.indexOf(item);
+    //     this.data.items.splice(itemIndex, 1);
+    // }
+
+
+    // supplierChanged(e) {
+    //     var selectedSupplier = e.detail;
+    //     if (selectedSupplier)
+    //         this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
+    // }
+
+    // currencyChanged(e) {
+    //     var selectedCurrency = e.detail;
+    //     if (selectedCurrency) {
+    //         var currencyRate = parseInt(selectedCurrency.rate ? selectedCurrency.rate : 1, 10);
+    //         this.data.currencyRate = currencyRate;
+    //     }
+    //     else
+    //         this.data.currencyRate = 0;
+    // }
+
+    // paymentMethodChanged(e) {
+    //     var selectedPayment = e.srcElement.value;
+    //     if (selectedPayment) {
+    //         this.data.paymentMethod = selectedPayment;
+    //         if (this.data.paymentMethod == "CASH") {
+    //             this.data.paymentDueDays = 0;
+    //         }
+    //         else {
+    //             this.data.paymentDueDays = 30;
+    //         }
     //     }
     // }
 
-    addItem() {
-        this.data.items = this.data.items ? this.data.items : [];
-        this.data.items.push({ showDetails: false });
-    }
-
-    removeItem(item) {
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
-    }
-
-
-    supplierChanged(e) {
-        var selectedSupplier = e.detail;
-        if (selectedSupplier)
-            this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
-    }
-
-    // supplierChanged(e){
-    //   console.log('supplier changed')
+    // vatChanged(e) {
+    //     var selectedVat = e.detail;
+    //     if (selectedVat) {
+    //         this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
+    //         this.data.useVat = true;
+    //     }
+    //     else {
+    //         this.data.vatRate = 0;
+    //         this.data.useVat = false;
+    //     }
     // }
 
-    currencyChanged(e) {
-        var selectedCurrency = e.detail;
-        if (selectedCurrency) {
-            var currencyRate = parseInt(selectedCurrency.rate ? selectedCurrency.rate : 1, 10);
-            this.data.currencyRate = currencyRate;
-        }
-        else
-            this.data.currencyRate = 0;
-    }
-
-    paymentMethodChanged(e) {
-        var selectedPayment = e.srcElement.value;
-        if (selectedPayment) {
-            this.data.paymentMethod = selectedPayment;
-            if (this.data.paymentMethod == "CASH") {
-                this.data.paymentDueDays = 0;
-            }
-            else {
-                this.data.paymentDueDays = 30;
-            }
-        }
-    }
-
-    vatChanged(e) {
-        var selectedVat = e.detail;
-        if (selectedVat) {
-            this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
-            this.data.useVat = true;
-        }
-        else {
-            this.data.vatRate = 0;
-            this.data.useVat = false;
-        }
-    }
-
-    useIncomeTaxChanged(e) {
-        var selectedUseIncomeTax = e.srcElement.checked || false;
-        if (!selectedUseIncomeTax) {
-            for (var po of this.data.items) {
-                for (var poItem of po.items) {
-                    poItem.useIncomeTax = false;
-                    poItem.pricePerDealUnit = poItem.priceBeforeTax;
-                }
-            }
-        }
-    }
+    // useIncomeTaxChanged(e) {
+    //     var selectedUseIncomeTax = e.srcElement.checked || false;
+    //     if (!selectedUseIncomeTax) {
+    //         for (var po of this.data.items) {
+    //             for (var poItem of po.items) {
+    //                 poItem.useIncomeTax = false;
+    //                 poItem.pricePerDealUnit = poItem.priceBeforeTax;
+    //             }
+    //         }
+    //     }
+    // }
 
 
     get supplierLoader(){
@@ -134,7 +130,5 @@ export class DataForm {
     get vatLoader(){
       return VatLoader;
     }
-
-    // get addSupplier()
 
 } 

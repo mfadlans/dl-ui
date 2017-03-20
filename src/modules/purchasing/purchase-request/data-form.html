@@ -1,7 +1,8 @@
 <template>
   <au-input-form 
         title.bind="title" 
-        with.bind="context">
+        with.bind="context"
+        >
 
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
@@ -16,7 +17,7 @@
             value.bind="data.no" 
             error.bind="error.no" 
             read-only.bind="true"
-            if.bind="(readOnly || isEdit)">>
+            if.bind="(readOnly || isEdit)">
         </au-textbox>
 
         <au-datepicker 

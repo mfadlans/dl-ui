@@ -1,4 +1,27 @@
-<template> 
+<template>
+  <h1 class="page-header">Purchase Order External</h1>
+
+  <au-table 
+    view-model.ref="table"
+    data.bind="loader"
+    columns.bind="columns"
+    sortable.bind="true"
+    page-size="25"
+    context.bind="context"
+    context-click.delegate="contextClickCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)"
+    selectable.bind="true"
+    selection.bind="dataToBePosted"
+    row-formatter.bind="rowFormatter">
+      <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="create()">Buat</button>
+        <button class="btn btn-primary" disabled.bind="!dataToBePosted.length > 0" click.delegate="posting()">Posting</button>
+      </div>
+</au-table>
+</template>
+
+
+<!--<template> 
     <div class="display-wrapper">
         <h1 class="page-header">Purchase Order External</h1>
         <br>
@@ -29,7 +52,7 @@
                     <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
                 </div>
             </div>
-            <!--<div class="col-sm-3" >
+            <div class="col-sm-3" >
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
                     <div class="btn-group">
@@ -38,7 +61,7 @@
                     </div>
                     <button type="button" class="btn btn-success ${isPrint ? '' : 'hide'}" click.delegate="print()">Cetak</button>
                 </div>
-            </div>-->
+            </div>
         </div>
         <div>
             <table class="table table-bordered">
@@ -86,4 +109,4 @@
         <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
         <hr/>
     </div>
-</template>
+</template>-->

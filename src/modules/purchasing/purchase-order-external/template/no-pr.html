@@ -1,0 +1,27 @@
+<template>
+<tr>
+  <td>
+    <au-autocomplete 
+                value.bind="purchaseRequest" 
+                error.bind="error.purchaseRequestId"
+                loader.bind="purchaseRequestPostedLoader"
+                placeholder="cari purchase request" 
+                key="no"
+                read-only.bind="prReadOnly">
+            </au-autocomplete>
+<td>
+  <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(item, $event)">-</button></td>
+</tr>
+</template>
+
+
+<!--
+<au-autocomplete
+              value.bind="data.no"
+              error.bind="error.no"
+              change.delegate="PRChanged($event)"
+              loader.bind="PurchaseRequestPostedLoader"
+              key="code"
+              read-only.bind="options.readOnly"
+              options.bind="controlOptions"
+      ></au-autocomplete>-->

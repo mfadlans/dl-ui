@@ -123,13 +123,16 @@
           read-only.bind="readOnly"
         ></au-multiline>
 
-        <!--<hr />
-        <div class="form-group ${error && error.items ? 'has-error' : ''}" >
-            <span class="help-block">${error.items.toString()==="[object Object]" ? "" : error.items}</span>
-        </div>-->
-        
-        
-        
+        <au-collection
+          items.bind="data.items"
+          error.bind="error.items"
+          columns.bind="PRColumns"
+          add.bind="addItems"
+          remove.bind="removeItems"
+          read-only.bind="readOnly"
+          item-template="modules/purchasing/purchase-order-external/template/no-pr"
+        ></au-collection>
+          
     </au-input-form>
     </div>
   </div>
@@ -138,15 +141,6 @@
 
 
 <!--<template>
-  <au-collection 
-          items.bind="data.items"
-          columns.bind="nomorPR"
-          add.bind="addNomorPR"
-          remove.bind="removeNomorPR"
-          title="Nomor PR"
-          read-only.bind="readOnly"
-          item-template="modules"
-        ></au-collection> 
     <form class="form-horizontal">
         <textbox                label="No. "                            value.bind="data.no"                    error.bind="error.no"                   read-only.bind="true" if.bind="readOnly || isEdit"></textbox>
         
