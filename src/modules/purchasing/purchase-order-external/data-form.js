@@ -1,11 +1,37 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
 
+var SupplierLoader = require('../../../loader/supplier-loader');
+var CurrencyLoader = require('../../../loader/currency-loader');
+var VatLoader = require('../../../loader/vat-loader');
+
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable title;
+    formOptions = {
+      cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
+
+    bind(context) {
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
+    if (this.data && this.data.supplier)
+            this.data.supplier.toString = function () {
+                return this.code + " - " + this.name;
+            };
+
+    this.cancelCallback = this.context.cancelCallback;
+    this.deleteCallback = this.context.deleteCallback;
+    this.editCallback = this.context.editCallback;
+    this.saveCallback = this.context.saveCallback;
+    }
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -20,13 +46,13 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    attached() {
-        if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
-        }
-    }
+    // attached() {
+    //     if (this.data.items) {
+    //         this.data.items.forEach(item => {
+    //             item.showDetails = false
+    //         })
+    //     }
+    // }
 
     addItem() {
         this.data.items = this.data.items ? this.data.items : [];
@@ -38,18 +64,16 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    bind() {
-        if (this.data && this.data.supplier)
-            this.data.supplier.toString = function () {
-                return this.code + " - " + this.name;
-            };
-    }
 
     supplierChanged(e) {
         var selectedSupplier = e.detail;
         if (selectedSupplier)
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
     }
+
+    // supplierChanged(e){
+    //   console.log('supplier changed')
+    // }
 
     currencyChanged(e) {
         var selectedCurrency = e.detail;
@@ -97,5 +121,20 @@ export class DataForm {
             }
         }
     }
+
+
+    get supplierLoader(){
+      return SupplierLoader;
+    }
+
+    get currencyLoader(){
+      return CurrencyLoader;
+    }
+
+    get vatLoader(){
+      return VatLoader;
+    }
+
+    // get addSupplier()
 
 } 
