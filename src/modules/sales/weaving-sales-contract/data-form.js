@@ -24,9 +24,9 @@ export class DataForm {
 
     termOfPaymentFilter = {};
 
-    tagsFilter = { tags: { "$regex": "Material" } };
+    tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
 
-    incomeTaxOptions = [];
+    incomeTaxOptions = ['Tanpa PPn', 'Include PPn', 'Exclude PPn'];
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -54,9 +54,9 @@ export class DataForm {
         if (this.data.buyer) {
             this.termOfPayment = true;
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.termOfPaymentFilter = { isExport: true };
+                this.termOfPaymentFilter = { "isExport": true };
             } else {
-                this.termOfPaymentFilter = { isExport: false };
+                this.termOfPaymentFilter = { "isExport": false };
             }
         } else {
             this.termOfPayments = {};
@@ -77,17 +77,31 @@ export class DataForm {
     }
 
     @computedFrom("data.buyer")
+    get isRemark() {
+
+        this.remark = false;
+        if (this.data.buyer) {
+
+            if (this.data.buyer.type.trim().toLowerCase() != "ekspor") {
+                this.remark = true;
+            } 
+        }
+        return this.remark;
+    }
+
+    @computedFrom("data.buyer")
     get isIncomeTax() {
         this.incomeTax = false;
         if (this.data.buyer) {
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.incomeTaxOptions = ['Tanpa PPn'];
+
                 this.incomeTax = true;
             } else {
-                this.incomeTaxOptions = ['Include PPn', 'Exclude PPn', 'Tanpa PPn'];
+
                 this.incomeTax = true;
             }
         }
+
         return this.incomeTax;
     }
 
@@ -116,14 +130,20 @@ export class DataForm {
 
     buyersChanged(e) {
         var selectedBuyer = e.detail || {};
+
         if (selectedBuyer) {
+            // this.incomeTaxOptions[0];
+            this.data.incomeTax = this.incomeTaxOptions[0];
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
-            this.data.termOfPayment = "";
-            this.data.agent = "";
-            this.data.comission = "";
+
+            if (!this.data.buyerId || this.data.buyerId == "") {
+                this.data.termOfPayment = {};
+                this.data.agent = "";
+                this.data.comission = "";
+            }
         }
         else {
-            this.data.termOfPayment = "";
+            this.data.termOfPayment = {};
             this.data.agent = "";
             this.data.comission = "";
         }
