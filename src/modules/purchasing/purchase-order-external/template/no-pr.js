@@ -3,8 +3,8 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 var PurchaseRequestPostedLoader = require('../../../../loader/purchase-request-posted-loader');
 
 export class NoPurchaseRequest {
-  @bindable readOnly = false;
-  @bindable prReadOnly = false;
+  // @bindable readOnly = false;
+  // @bindable prReadOnly = false;
   @bindable purchaseRequest;
   
   activate(context) {

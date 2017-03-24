@@ -1,11 +1,13 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
+var UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loader');
 
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable title;
 
     correctionTypes = ["Harga Satuan", "Harga Total"];
     correctionType = "Harga Satuan";
@@ -15,12 +17,35 @@ export class DataForm {
         this.element = element;
     }
 
+    listColumns = [
+      { header: "No. PO External", value: "purchaseOrderExternal.no" },
+      { header: "No. PR", value: "purchaseRequest.no" },
+      { header: "Barang", value: "product" },
+      { header: "Jumlah", value: "quantity" },
+      { header: "Satuan", value: "value.uom" },
+      { header: "Harga Satuan", value: "value.pricePerUnit" },
+      { header: "Harga Total", value: "value.priceTotal" },
+    ]
+
+
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
 
-    bind() {
+    get unitPaymentOrderLoader() {
+      return UnitPaymentOrderLoader;
+    }
+
+    bind(context) {
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
+
+    this.cancelCallback = this.context.cancelCallback;
+    this.deleteCallback = this.context.deleteCallback;
+    this.editCallback = this.context.editCallback;
+    this.saveCallback = this.context.saveCallback;
         if (this.data) {
             this.flag = true;
             if (this.data.correctionType == "Harga Satuan")

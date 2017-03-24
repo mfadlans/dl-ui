@@ -78,7 +78,7 @@ export class View {
 
     unpost(event) {
         this.service.unpost(this.prId).then(result => {
-            this.cancel();
+            this.cancel(event);
         }).catch(e => {
             this.error = e;
         })

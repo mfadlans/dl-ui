@@ -1,4 +1,22 @@
 <template>
+  <h1 class="page-header">Surat Perintah Bayar</h1>
+  <au-table 
+  data.bind="loader" 
+  columns.bind="columns" 
+  sortable.bind="true" 
+  page-size="25" 
+  context.bind="context" 
+  context-click.delegate="contextCallback($event)">
+    <div slot="toolbar" class="btn-group">
+      <button class="btn btn-success" click.delegate="create()">Buat</button>
+    </div>
+  </au-table>
+</template>
+
+
+
+
+<!--<template>
      
     <div class="display-wrapper">
         <h1 class="page-header">Surat Perintah Bayar</h1>
@@ -56,4 +74,4 @@
         <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
         <hr/>
     </div>
-</template>
+</template>-->

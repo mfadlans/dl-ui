@@ -1,0 +1,39 @@
+<template>
+    <tr>
+        <td>
+            <au-textbox 
+                    value.bind="data.product"
+                    error.bind="error.product"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+                <au-numeric 
+                    value.bind="data.deliveredQuantity" 
+                    error.bind="error.product.deliveredQuantity"
+                    console.log(this.data)
+                    read-only.bind="options.readOnly" 
+                    format = "0"
+                    options.bind="controlOptions">
+                </au-numeric>
+        </td>
+        <td style="text-align:center;" class="col-sm-2">
+                <au-textbox 
+                    value.bind="data.product.uom.unit" 
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-textbox>
+        </td>
+        <td>
+                <au-textbox 
+                    value.bind="data.remark" 
+                    error.bind="error.remark"
+                    read-only.bind="options.readOnly" 
+                    placeholder="tambah keterangan" 
+                    options.bind="controlOptions">
+                </au-textbox>
+        </td>
+        <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(item, $event)">-</button></td>
+    </tr>
+</template>

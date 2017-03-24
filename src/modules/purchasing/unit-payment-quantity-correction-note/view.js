@@ -21,24 +21,24 @@ export class View {
         }
     }
 
-    list() {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
-        this.router.navigateToRoute('edit', { id: this.data._id });
-    }
+    // editCallback(event) {
+    //     this.router.navigateToRoute('edit', { id: this.data._id });
+    // }
 
-    delete() {
-        this.service.delete(this.data).then(result => {
-            this.list();
-        });
-    }
+    // deleteCallback(event) {
+    //     this.service.delete(this.data).then(result => {
+    //         this.cancelCallback(event);
+    //     });
+    // }
 
-    showDetail(item) {
-        if (item.showDetails)
-            item.showDetails = false;
-        else
-            item.showDetails = true;
-    }
+    // showDetail(item) {
+    //     if (item.showDetails)
+    //         item.showDetails = false;
+    //     else
+    //         item.showDetails = true;
+    // }
 }

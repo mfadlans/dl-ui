@@ -5,7 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    dataToBePosting = [];
+    dataToBePosted = [];
 
     rowFormatter(data, index) {
       if (data.isPosted)
@@ -32,7 +32,7 @@ export class List {
         }
        },
       { field: "supplier.name", title: "Nama Supplier" },
-      { field: "purchaseRequest.no", title: "Nomor Purchase Request" },
+      { field: "purchaseRequest", title: "Nomor Purchase Request" },
       { field: "isPosted", title: "Status Post",
         formatter: function (value, row, index) {
           return value ? "SUDAH" : "BELUM";

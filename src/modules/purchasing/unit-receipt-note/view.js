@@ -19,21 +19,38 @@ export class View {
                 item.showDetails = false
             })
         }
+
+        this.data.unit.toString = function () {
+          return [this.division.name, this.name]
+            .filter((item, index) => {
+              return item && item.toString().trim().length > 0;
+            }).join(" - ");
+        }
+        this.data.supplier.toString = function () {
+          return [this.code, this.name]
+            .filter((item, index) => {
+              return item && item.toString().trim().length > 0;
+            }).join(" - ");
+        }
     }
 
-    list() {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+    cancel(event) {
+        this.router.navigateToRoute('list');
     }
 
-    delete() {
-        this.service.delete(this.data).then(result => {
-            this.list();
-        });
-    }
+    // edit(event) {
+    //     this.router.navigateToRoute('edit', { id: this.data._id });
+    // }
+
+    // delete(event) {
+    //     this.service.delete(this.data).then(result => {
+    //         this.cancel(event);
+    //     });
+    // }
 
     showDetail(item) {
         if (item.showDetails)

@@ -11,7 +11,7 @@ export class Create {
         this.data = {};
     }
 
-    activate() {
+    activate(params) {
         // this.data.paymentDueDays = 0;
     }
 

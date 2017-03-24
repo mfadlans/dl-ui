@@ -2,7 +2,7 @@
   <au-input-form
     title.bind="title"
     with.bind="context"
-    options.bind="formOption"
+    options.bind="formOptions"
   >
   
   <au-textbox
@@ -21,7 +21,7 @@
 
   <au-autocomplete
     label="Unit"
-    value.bind="data.unit.division.name"
+    value.bind="data.unit"
     loader.bind="unitLoader"
     read-only.bind="readOnly"
     change.delegate="unitChanged($event)"
@@ -41,6 +41,9 @@
     loader.bind="deliveryOrderLoader"
     read-only.bind="readOnly"
     change.delegate="deliveryOrderChanged($event)"
+    placeholder="cari delivery order"
+    key="id"
+    text="code"
     if.bind="data.unit && data.supplier"
   ></au-autocomplete>
 
@@ -51,12 +54,17 @@
   ></au-multiline>
 
   <au-collection
-    value.bind="data.items"
+    title="List Barang"
+    items.bind="data.items"
     error.bind="error.items"
+    columns.bind="itemsColumns"
+    add.bind="addItems"
+    remove.bind="removeItems"
     read-only.bind="readOnly"
-    filter.one-way="filter"
-    if.bind="data.deliverOrderId"
+    item-template="modules/purchasing/unit-receipt-note/template/item"
+    if.bind="data.deliverOrder.no || readOnly"   
   ></au-collection>
+
   </au-input-form>
 </template>
 
@@ -64,7 +72,8 @@
 
 
 <!--<template>
-  
+  filter.one-way="filter"
+    if.bind="data.deliverOrderId"
     
     <form class="form-horizontal">
         <textbox                                        label="No. Bon Unit"    value.bind="data.no"            error.bind="error.no"               read-only.bind="true" if.bind="readOnly || isEdit"></textbox>

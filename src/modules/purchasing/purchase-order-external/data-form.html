@@ -1,12 +1,18 @@
 <template>
-  <div class="row">
-    <div class="col-md-6">
+  
       
     <au-input-form
       title.bind="title"
       with.bind="context"
       options.bind="formOptions"
     >
+
+    <div slot="actions" class="btn-group">
+            <button class="btn btn-primary" click.delegate="context.unpost($event)" if.one-way="context.hasUnpost">Unpost</button>
+        </div>
+
+    <div class="row">
+    <div class="col-md-6">
 
         <au-textbox                
           label="No. "                            
@@ -25,7 +31,6 @@
           loader.bind="supplierLoader"
           placeholder="cari supplier"
           key="code"
-          text="name"
           read-only.bind="readOnly" 
         ></au-autocomplete>
         
@@ -90,23 +95,23 @@
 
         <au-autocomplete       
           label="Pajak Pph"                             
-          value.bind="data.vat"                   
+          value.bind="data.vat"                  
           error.bind="error.vat"                  
           read-only.bind="readOnly"   
           change.delegate="vatChanged($event)"
           loader.bind="vatLoader"
-          placeholder="cari Pajak Pph"
-          key="name"
+          key="_id"
+          text="name"
         ></au-autocomplete>
         
-        <au-textbox                
+        <au-numeric                
           label="Rate Pph"                        
           value.bind="data.vat.rate"               
-          error.bind="error.vat.rate"              
-          read-only.bind="true"
+          error.bind="error.vat.rate"                  
+          read-only.bind="true" 
           format="0"       
           post-fix="%"
-        ></au-textbox> 
+        ></au-numeric>
         
         <au-checkbox               
           label="Apakah kena Ppn?"                
@@ -123,9 +128,12 @@
           read-only.bind="readOnly"
         ></au-multiline>
 
+         </div>
+  </div>
+
         <au-collection
+          title="Detail PR"
           items.bind="data.items"
-          error.bind="error.items"
           columns.bind="PRColumns"
           add.bind="addItems"
           remove.bind="removeItems"
@@ -134,8 +142,7 @@
         ></au-collection>
           
     </au-input-form>
-    </div>
-  </div>
+   
       
 </template>
 
