@@ -3,7 +3,8 @@ import { Config } from "aurelia-api";
 
 const resource = 'master/suppliers';
 
-module.exports = function (keyword, filter) {
+
+module.exports = function(keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("core");
@@ -21,3 +22,4 @@ module.exports = function (keyword, filter) {
             })
         });
 }
+
