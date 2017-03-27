@@ -1,4 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
 
 var PurchaseRequestPostedLoader = require('../../../../loader/purchase-request-posted-loader');
 

@@ -1,6 +1,8 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
 
+var UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loader')
+
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
@@ -49,9 +51,16 @@ export class DataForm {
             this.flag = false;
     }
 
+    get unitPaymentOrderLoader() {
+      return UnitPaymentOrderLoader;
+    }
+
 
 
     unitPaymentOrderChanged(e) {
+      // if (this.data.selectedPaymentOrder)
+      //     this.data.unitPaymentOrderId = this.data.selectedPaymentOrder._id ? this.data.selectedPaymentOrder._id : {};
+
         var selectedPaymentOrder = e.detail;
         if (selectedPaymentOrder && !this.readOnly) {
             if (!this.readOnly)
@@ -77,23 +86,23 @@ export class DataForm {
 
                         if (unitReceiptNoteItem.correction) {
                             if (unitReceiptNoteItem.correction.length > 0) {
-                                // var _qty = 0;
-                                // var _hasQtyCorrection = false;
-                                // for (var correction of unitReceiptNoteItem.correction) {
-                                //     if (correction.correctionRemark === "Koreksi Jumlah") {
-                                //         _qty += correction.correctionQuantity;
-                                //         _hasQtyCorrection = true;
-                                //     }
-                                // }
-                                // if (!_hasQtyCorrection) {
-                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-                                // } else {
-                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
-                                // }
+                                var _qty = 0;
+                                var _hasQtyCorrection = false;
+                                for (var correction of unitReceiptNoteItem.correction) {
+                                    if (correction.correctionRemark === "Koreksi Jumlah") {
+                                        _qty += correction.correctionQuantity;
+                                        _hasQtyCorrection = true;
+                                    }
+                                }
+                                if (!_hasQtyCorrection) {
+                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
+                                } else {
+                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
+                                }
                                 var _qty = unitReceiptNoteItem.correction
                                     .map((correction) => {
                                         if (correction.correctionRemark === "Koreksi Jumlah") {

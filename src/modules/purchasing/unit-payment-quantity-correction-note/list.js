@@ -67,7 +67,7 @@ export class List {
                 this.service.getPdfById(data._id);
                 break;
             case "print nota retur":
-                this.service.getPDFRetur(data._id);
+                this.service.getPdfReturById(data._id);
                 break;
         }
     }
@@ -77,17 +77,12 @@ export class List {
         this.router = router;
     }
 
-    // constructor(router, service) {
-    //     this.service = service;
-    //     this.router = router;
-    // }
-
-    // async activate() {
-    //     this.info.keyword = '';
-    //     var result = await this.service.search(this.info);
-    //     this.data = result.data;
-    //     this.info = result.info;
-    // }
+    async activate() {
+        this.info.keyword = '';
+        var result = await this.service.search(this.info);
+        this.data = result.data;
+        this.info = result.info;
+    }
 
     // loadPage() {
     //     var keyword = this.info.keyword;
@@ -121,7 +116,7 @@ export class List {
     //     this.service.getPdfById(data._id);
     // }
 
-    getPDFRetur(data) {
-        this.service.getPdfReturById(data._id);
-    }
+    // getPDFRetur(data) {
+    //     this.service.getPdfReturById(data._id);
+    // }
 }

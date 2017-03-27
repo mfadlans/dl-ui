@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 @inject(Router, Service)
@@ -14,15 +14,15 @@ export class List {
         return {}
     }
 
+    
     context = ["detail", "print"];
 
     columns = [
       {
-        field: "isPosting", title: "Post",
-        checkbox: true, sortable: false,
-        formatter: function (value, data, index) {
-          this.checkboxEnabled = !data.isPosted;
-          return ""
+      field: "isPosting", title: "Post", checkbox: true, sortable: false,
+      formatter: function (value, data, index) {
+        this.checkboxEnabled = !data.isPosted;
+        return ""
         }
       },
       { field: "no", title: "Nomor PO External" },
@@ -33,7 +33,7 @@ export class List {
        },
       { field: "supplier.name", title: "Nama Supplier" },
       { field: "purchaseRequest", title: "Nomor Purchase Request" },
-      { field: "isPosted", title: "Status Post",
+      { field: "isPosted", title: "Posted",
         formatter: function (value, row, index) {
           return value ? "SUDAH" : "BELUM";
         }
