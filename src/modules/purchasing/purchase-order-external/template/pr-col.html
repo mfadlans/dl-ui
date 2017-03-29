@@ -1,0 +1,71 @@
+<template>
+  <tr>
+    <td width="15%">
+      <au-textbox
+        value.bind="data.product.name"
+        error.bind="error.product.name"
+        read-only.bind="true"
+        if.bind="data.purchaseRequest.no"
+      ></au-textbox>
+    </td>
+    <td width="7%">
+      <au-numeric
+        value.bind="data.defaultQuantity"
+        error.bind="error.defaultQuantity"
+        read-only.bind="true"
+      ></au-numeric>
+    </td>
+    <td width="8%">
+      <au-textbox
+        value.bind="data.defaultUom.unit"
+        error.bind="error.defaultUom.unit"
+        read-only.bind="true"
+      ></au-textbox>
+    </td>
+    <td width="9%">
+      <au-numeric
+        value.bind="data.dealQuantity"
+        error.bind="error.dealQuantity"
+        read-only.bind="readOnly"
+        format="0"
+      ></au-numeric>
+    </td>
+    <td width="11%">
+      <au-textbox
+        value.bind="data.dealUom.unit"
+        error.bind="error.dealUom.unit"
+        read-only.bind="readOnly"
+      ></au-textbox>
+    </td>
+    <td width="10%">
+      <au-numeric
+        value.bind="data.conversion"
+        error.bind="error.conversion"
+        read-only.bind="readOnly"
+        format="0"
+      ></au-numeric>
+    </td>
+    <td width="20%">
+      <au-numeric
+        value.bind="data.priceBeforeTax"
+        error.bind="error.priceBeforeTax"
+        read-only.bind="readOnly"
+      ></au-numeric>
+    </td>
+    <td>
+      <au-checkbox
+        value.bind="data.useIncomeTax"
+        error.bind="error.useIncomeTax"
+        read-only.bind="readOnly"
+        if.bind="useIncomeTax"
+      ></au-checkbox>
+    </td>
+    <td width="15%">
+      <au-textbox
+        value.bind="data.remark"
+        error.bind="error.remark"
+        read-only.bind="true"
+      ></au-textbox>
+    </td>
+  </tr>
+</template>

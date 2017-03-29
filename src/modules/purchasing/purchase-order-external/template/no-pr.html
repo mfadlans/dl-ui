@@ -4,91 +4,29 @@
       <au-autocomplete 
                   value.bind="data.purchaseRequest.no" 
                   error.bind="error.purchaseRequest.no"
-                  loader.bind="PurchaseRequestPostedLoader"
+                  loader.bind="purchaseRequestPostedLoader"
                   placeholder="cari purchase request" 
-                  key="_id"
+                  query.bind="purchaseRequestFilter"
+                  key="no"
                   text="no"
                   read-only.bind="options.readOnly">
         </au-autocomplete>
   </td>
     <td class="col-sm-2">
         <button class="btn btn-danger pull-right" if.bind="!options.readOnly" click.delegate="onremove(item, $event)">-</button>
-        <button class="btn btn-info pull-right" click.delegate="onremove(item, $event)">i</button>
+        <button class="btn btn-info pull-right" click.delegate="">i</button>
     </td>
   </tr>
   <tr>
-                <td>
-                    <table className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th rowSpan="2" width="15%">Barang</th>
-                                <th colSpan="2" width="15%">Default</th>
-                                <th colSpan="2" width="15%">Deal</th>
-                                <th rowSpan="2" width="10%">Konversi</th>
-                                <th rowSpan="2" width="20%">Harga</th>
-                                <th rowSpan="2" width="15%">Ket.</th>
-                            </tr>
-                            <tr>
-                                <th width="7%">Jumlah</th>
-                                <th width="8%">Satuan</th>
-                                <th width="9%">Jumlah</th>
-                                <th width="11%">Satuan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          <td>
-                            <au-textbox
-                              value.bind="data.purchaseOrder.items.code"
-                              error.bind="error.purchaseOrder.item.code"
-                              read-only.bind="true"
-                            ></au-textbox>
-                          </td>
-                          <!--<td>
-                            <au-numeric
-                              value.bind="data.defaultQuantity"
-                              error.bind="error.defaultQuantity"
-                              read-only.bind="true"
-                            ></au-numeric>
-                          </td>
-                          <td>
-                            <au-textbox
-                              value.bind="data.item.uom"
-                              error.bind="error.uom"
-                              read-only.bind="true"
-                            ></au-textbox>
-                          </td>
-                          <td>
-                            <au-numeric
-                              value.bind="data.dealQuantity"
-                              error.bind="error.dealQuantity"
-                              read-only.bind="true"
-                            ></au-numeric>
-                          </td>
-                          <td>
-                            <au-textbox
-                              value.bind="data.dealUom"
-                              error.bind="error.dealUom"
-                              read-only.bind="true"
-                            ></au-textbox>
-                          </td>
-                          <td>
-                            <au-numeric
-                              value.bind="data.priceBeforeTax"
-                              error.bind="error.priceBeforeTax"
-                              read-only.bind="true"
-                            ></au-numeric>
-                          </td>
-                          <td>
-                            <au-textbox
-                              value.bind="data.remark"
-                              error.bind="error.remark"
-                              read-only.bind="true"
-                            ></au-textbox>
-                          </td>-->
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
+        <td colspan="4">
+            <au-collection
+              items.bind="data.items"
+              columns.bind="columns"
+              read-only.bind="options.readOnly"
+              item-template="modules/purchasing/purchase-order-external/template/pr-col"
+            ></au-collection>      
+        </td>
+    </tr>
 </template>
 
 
