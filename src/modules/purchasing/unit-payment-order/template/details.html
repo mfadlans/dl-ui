@@ -1,0 +1,40 @@
+<template>
+  <tr>
+    <td width="15%">
+      <au-textbox
+        value.bind="data.product"
+        error.bind="error.product"
+        read-only.bind="true"
+      ></au-textbox>
+    </td>
+    <td width="7%">
+      <au-numeric
+        value.bind="data.deliveredQuantity"
+        error.bind="error.deliveredQuantity"
+        read-only.bind="true"
+        format="0"
+      ></au-numeric>
+    </td>
+    <td width="8%">
+      <au-textbox
+        value.bind="data.deliveredUom.unit"
+        error.bind="error.deliveredUom.unit"
+        read-only.bind="true"
+      ></au-textbox>
+    </td>
+    <td width="9%">
+      <au-numeric
+        value.bind="data.pricePerDealUnit"
+        error.bind="error.pricePerDealUnit"
+        read-only.bind="true"
+      ></au-numeric>
+    </td>
+    <td width="11%">
+      <au-textbox
+        value.bind="data.dealUom.unit"
+        error.bind="error.dealUom.unit"
+        read-only.bind="true"
+      ></au-textbox>
+    </td>
+  </tr>
+</template>

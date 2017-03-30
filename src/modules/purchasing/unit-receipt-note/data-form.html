@@ -37,13 +37,13 @@
 
   <au-autocomplete
     label="Surat Jalan"
-    value.bind="data.deliveryOrder.no"
+    value.bind="deliveryOrder"
     loader.bind="deliveryOrderLoader"
     read-only.bind="readOnly"
     change.delegate="deliveryOrderChanged($event)"
     placeholder="cari delivery order"
-    key="id"
-    text="code"
+    key="supplier"
+    text="no"
     if.bind="data.unit && data.supplier"
   ></au-autocomplete>
 
@@ -62,7 +62,6 @@
     remove.bind="removeItems"
     read-only.bind="readOnly"
     item-template="modules/purchasing/unit-receipt-note/template/item"
-    if.bind="data.deliverOrder.no || readOnly"   
   ></au-collection>
 
   </au-input-form>

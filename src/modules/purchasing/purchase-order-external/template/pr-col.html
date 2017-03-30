@@ -5,7 +5,6 @@
         value.bind="data.product.name"
         error.bind="error.product.name"
         read-only.bind="true"
-        if.bind="data.purchaseRequest.no"
       ></au-textbox>
     </td>
     <td width="7%">
@@ -57,7 +56,7 @@
         value.bind="data.useIncomeTax"
         error.bind="error.useIncomeTax"
         read-only.bind="readOnly"
-        if.bind="useIncomeTax"
+        if.bind=data.useIncomeTax       
       ></au-checkbox>
     </td>
     <td width="15%">

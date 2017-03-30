@@ -24,7 +24,7 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       } },
       { field: "no", title: "No. Surat Perintah Bayar" },
-      { field: "vatNo", title: "List Nomor Bon Unit-Nomor SJ" },
+      { field: "items", title: "List Nomor Bon Unit - Nomor SJ"},
     ];
 
     loader = (info) => {
@@ -40,11 +40,17 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+              // this.data.unitReceiptNote.toString = function () {
+              //   return [this.no, this.deliveryOrder.no]
+              //           .filter((item, index) => {
+              //               return item && item.toString().trim().length > 0;
+              //           }).join(" - ");
+              //   }
                 return {
                     total: result.info.total,
                     data: result.data
                 }
-            });
+            });  
     }
 
     contextClickCallback(event) {
@@ -65,12 +71,14 @@ export class List {
         this.router = router;
     }
 
-    // async activate() {
-    //     this.info.keyword = '';
-    //     var result = await this.service.search(this.info);
-    //     this.data = result.data;
-    //     this.info = result.info;
-    // }
+    async activate(params) {
+        this.info.keyword = '';
+        var result = await this.service.search(this.info);
+        this.data = result.data;
+        this.info = result.info;
+
+        console.log(this.data);
+    }
 
     // loadPage() {
     //     var keyword = this.info.keyword;

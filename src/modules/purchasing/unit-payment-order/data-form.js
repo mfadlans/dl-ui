@@ -1,13 +1,27 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
+var DivisionLoader = require('../../../loader/division-loader');
+var SupplierLoader = require('../../../loader/supplier-loader');
+var CategoryLoader = require('../../../loader/category-loader');
+var CurrencyLoader = require('../../../loader/currency-loader');
+var VatLoader = require('../../../loader/vat-loader');
 
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable title;
+    formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
+
+    columns = [ { header: "Nomor Bon Unit - Nomor Surat Jalan ", value: "UnitReceiptNote.no" }];
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -19,12 +33,27 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    bind() {
-        if (this.data && this.data.supplier)
-            this.data.supplier.toString = function () {
-                return this.code + " - " + this.name;
-            };
+    // bind() {
+    //     if (this.data && this.data.supplier)
+    //         this.data.supplier.toString = function () {
+    //             return this.code + " - " + this.name;
+    //         };
+    // }
+    bind(context) {
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
+    // if (this.data && this.data.supplier)
+    //         this.data.supplier.toString = function () {
+    //             return this.code + " - " + this.name;
+    //         };
+
+    this.cancelCallback = this.context.cancelCallback;
+    this.deleteCallback = this.context.deleteCallback;
+    this.editCallback = this.context.editCallback;
+    this.saveCallback = this.context.saveCallback;
     }
+
 
     @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.vatRate", "data.useIncomeTax")
     get filter() {
@@ -107,6 +136,46 @@ export class DataForm {
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = null;
     }
+
+    get divisionLoader() {
+      return DivisionLoader;
+    }
+
+    get supplierLoader() {
+      return SupplierLoader;
+    }
+
+    get categoryLoader() {
+      return CategoryLoader;
+    }
+
+    get currencyLoader() {
+      return CurrencyLoader;
+    }
+
+    get vatLoader() {
+      return VatLoader;
+    }
+
+    addItem() {
+        this.data.items = this.data.items ? this.data.items : [];
+        this.data.items.push({ showDetails: false });
+    }
+
+    removeItem(item) {
+        var itemIndex = this.data.items.indexOf(item);
+        this.data.items.splice(itemIndex, 1);
+    }
+
+    get addItems() {
+    return (event) => {
+      this.data.items.push({})
+    };
+  }
+
+  get removeItems() {
+    return (event) => console.log(event);
+  }
 
     resetErrorItems() {
         if (this.error) {

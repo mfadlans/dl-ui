@@ -71,6 +71,9 @@ export class DataForm {
     }
 
     supplierChanged(e) {
+      // if (this.data.supplier)
+      // this.data.supplierId = this.data.supplier._id ? this.data.supplier._id : {};
+      
         var selectedSupplier = e.detail || {};
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
@@ -83,6 +86,9 @@ export class DataForm {
     }
 
     unitChanged(e) {
+      // if (this.data.unit)
+      //       this.data.unitId = this.data.unit._id ? this.data.unit._id : {};
+        
         var selectedUnit = e.detail || {};
         if (selectedUnit) {
             this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
@@ -94,51 +100,111 @@ export class DataForm {
         }
     }
 
+    // deliveryOrderChanged(newValue) {
+    //   this.data.deliveryOrder = newValue;
+    //   if (this.data.deliveryOrder) {
+    //     var _items = [];
+    //     this.data.deliveryOrderId = this.data.deliveryOrder._id;
+    //     console.log(this.data);
+    //     console.log(this.data._items);
+
+    //     // this.data.deliveryOrder.unit.toString = function () {
+    //     //   return [this.division.name, this.name]
+    //     //     .filter((item, index) => {
+    //     //       return item && item.toString().trim().length > 0;
+    //     //     }).join(" - ");
+    //     // }
+
+    //     // this.data.deliveryOrder.category.toString = function () {
+    //     //   return [this.code, this.name]
+    //     //     .filter((item, index) => {
+    //     //       return item && item.toString().trim().length > 0;
+    //     //     }).join(" - ");
+    //     // }
+
+    //     this.data.remark = this.data.deliveryOrder.remark;
+    //     this.data.deliveryOrder.items.map((item) => {
+    //       var _item = {};
+    //       _item.product = item.product;
+    //       _item.deliveredQuantity = item.deliveredQuantity;
+    //       _item.product.uom = item.product.uom;
+    //       _item.remark = item.remark;
+    //       _item.push(_item);
+    //     })
+    //     this.data.items = _items;
+
+    //     this.data.items.forEach(item => {
+    //       item.product.toString = function () {
+    //         return [this.code, this.name]
+    //           .filter((item, index) => {
+    //             return item && item.toString().trim().length > 0;
+    //           }).join(" - ");
+    //       }
+    //     })
+    //   }
+    //   else {
+    //     this.data.deliveryOrder = {};
+    //     this.data.deliveryOrderId = {};
+    //     this.data.remark = "";
+    //     this.data.items = [];
+    //   }
+    // }
+
     deliveryOrderChanged(e) {
+      // if (this.data.deliveryOrder)
+      // this.data.deliveryOrderId = this.data.deliveryOrder._id ? this.data.deliveryOrder._id : {};
       if (this.data.budget)
             this.data.deliveryOrderId = this.data.deliveryOrder._id ? this.data.deliveryOrder._id : {};
-    //     var selectedDo = e.detail || {};
-    //     if (selectedDo) {
-    //         this.data.deliveryOrderId = selectedDo._id;
-    //         // var selectedItem = selectedDo.items || []
-    //         // var _items = [];
-    //         // for (var item of selectedItem) {
-    //         //     for (var fulfillment of item.fulfillments) {
-    //         //         var _item = {};
-    //         //         if (fulfillment.purchaseOrder.unitId == this.data.unitId) {
-    //         //             _item.product = fulfillment.product;
-    //         //             _item.deliveredUom = fulfillment.purchaseOrderUom;
-    //         //             _item.purchaseOrder = fulfillment.purchaseOrder;
-    //         //             _item.purchaseOrderId = fulfillment.purchaseOrderId;
-    //         //             _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
-    //         //             _item.currency = fulfillment.purchaseOrder.currency;
-    //         //             _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
+        var selectedDo = e.detail || {};
+        if (selectedDo) {
+            this.data.deliveryOrderId = selectedDo._id;
+            var selectedItem = selectedDo.items || []
+            var _items = [];
+            console.log(this.data);
+            for (var item of selectedItem) {
+                for (var fulfillment of item.fulfillments) {
+                    var _item = {};
+                    if (fulfillment.purchaseOrder.unitId == this.data.unitId) {
+                        _item.product = fulfillment.product;
+                        _item.deliveredUom = fulfillment.purchaseOrderUom;
+                        _item.purchaseOrder = fulfillment.purchaseOrder;
+                        _item.purchaseOrderId = fulfillment.purchaseOrderId;
+                        _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
+                        _item.currency = fulfillment.purchaseOrder.currency;
+                        _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
+                        // _item.product = item.product;
+                        // _item.deliveredQuantity = item.deliveredQuantity;
+                        // _item.product.uom = item.product.uom;
+                        // _item.remark = item.remark;
 
-    //         //             var total = fulfillment.realizationQuantity
-    //         //                 .map(qty => qty.deliveredQuantity)
-    //         //                 .reduce((prev, curr, index) => {
-    //         //                     return prev + curr;
-    //         //                 }, 0);
 
-    //         //             _item.deliveredQuantity = fulfillment.deliveredQuantity - total;
+                        var total = fulfillment.realizationQuantity
+                            .map(qty => qty.deliveredQuantity)
+                            .reduce((prev, curr, index) => {
+                                return prev + curr;
+                            }, 0);
 
-    //         //             for (var _poItem of fulfillment.purchaseOrder.items) {
-    //         //                 if (_poItem.product._id == fulfillment.product._id) {
-    //         //                     _item.pricePerDealUnit = _poItem.pricePerDealUnit;
-    //         //                     break;
-    //         //                 }
-    //         //             }
-    //         //             if (_item.deliveredQuantity > 0)
-    //         //                 _items.push(_item);
-    //         //         }
-    //         //     }
-    //         // }
-    //         // this.data.items = _items;
-    //     }
-    //     else {
-    //         this.data.items = [];
-    //     }
-    //     this.resetErrorItems();
+                        _item.deliveredQuantity = fulfillment.deliveredQuantity - total;
+
+                        for (var _poItem of fulfillment.purchaseOrder.items) {
+                            if (_poItem.product._id == fulfillment.product._id) {
+                                _item.pricePerDealUnit = _poItem.pricePerDealUnit;
+                                break;
+                            }
+                        }
+                        if (_item.deliveredQuantity > 0)
+                            _items.push(_item);
+                    }
+                }
+            }
+            this.data.items = _items;
+        }
+        else {
+            this.data.items = [];
+        }
+        this.resetErrorItems();
+              console.log(this.data);
+
     }
 
     resetErrorItems() {

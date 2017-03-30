@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-var PurchaseRequestLoader = require('../../../../loader/purchase-request-loader');
+var UnitReceiptNoteBySupplierByUnit = require('../../../../loader/unit-receipt-note-by-supplier-by-unit-loader');
 
 export class NoPurchaseRequest {
   // @bindable readOnly = false;
@@ -11,26 +11,24 @@ export class NoPurchaseRequest {
 
   columns = [
     {header: "Barang", value: "product"}, 
-    {header: "Jumlah", value: "defaultQuantity"}, 
-    {header: "Satuan", value: "uom"}, 
-    {header: "Jumlah", value: "dealQuantity"}, 
-    {header: "Satuan", value: "dealUom"}, 
-    {header: "Konversi", value: "conversion"}, 
-    {header: "Harga", value: "priceBeforeTax"},
-    {header: "Incl Ppn?", value: "useIncomeTax"}, 
-    {header: "Ket.", value: "remark"} ];
+    {header: "Jumlah", value: "deliveredQuantity"}, 
+    {header: "Satuan", value: "deliveredUom"}, 
+    {header: "Harga Satuan", value: "pricePerDealUnit"}, 
+    {header: "Total Harga", value: ""}, ];
   
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
     console.log(this.data);
+
+    
   }
 
-  purchaseRequestFilter = { isPosted: true  };
+  // purchaseRequestFilter = { isPosted: true  };
 
-  get purchaseRequestLoader() {
-        return PurchaseRequestLoader;
+  get unitReceiptNoteBySupplierByUnit() {
+        return UnitReceiptNoteBySupplierByUnit;
     }
 
   controlOptions = {

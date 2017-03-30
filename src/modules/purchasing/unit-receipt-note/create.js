@@ -19,14 +19,14 @@ export class Create {
         this.error = {};
     }
 
-    cancel(event) {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    save(event) {
+    saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
-                this.back();
+                this.cancelCallback(event);
             })
             .catch(e => {
                 this.error = e;

@@ -26,7 +26,7 @@ export class DataForm {
         { header: "Jumlah", value: "defaultQuantity" },
         { header: "Satuan", value: "defaultUom" },
         { header: "Keterangan", value: "remark" }
-    ]
+    ];
 
     get purchaseRequestPostedLoader() {
         return PurchaseRequestPostedLoader;

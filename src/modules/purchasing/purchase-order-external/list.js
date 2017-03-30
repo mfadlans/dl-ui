@@ -81,6 +81,7 @@ export class List {
     }
 
     contextClickCallback(event) {
+      console.log(this.data);
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
@@ -117,10 +118,12 @@ export class List {
     }
 
     // async activate() {
-    //     this.info.keyword = '';
-    //     var result = await this.service.search(this.info);
-    //     this.data = result.data;
-    //     this.info = result.info;
+    //     // this.info.keyword = '';
+    //     // var result = await this.service.search(this.info);
+    //     // this.data = result.data;
+    //     // this.info = result.info;
+
+    //   console.log(this.data);
     // }
 
     // loadPage() {

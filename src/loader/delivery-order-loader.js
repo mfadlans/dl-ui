@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'purchasing/delivery-order';
+const resource = 'delivery-orders';
 
 module.exports = function(keyword, filter) {
 
@@ -10,7 +10,14 @@ module.exports = function(keyword, filter) {
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
-            return results.data
+            return results.data.map(deliveryOrder => {
+              deliveryOrder.toString = function () {
+                return [this.no, this.refNo]
+                .filter((item, index) => {
+                  return item && item.toString().trim().length > 0;
+                }).join(" - ");
+              }
+              return deliveryOrder;
+            })
         });
-        
 }

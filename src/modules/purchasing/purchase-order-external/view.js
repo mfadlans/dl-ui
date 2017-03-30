@@ -20,6 +20,7 @@ export class View {
     }
 
     async activate(params) {
+        
         var id = params.id;
 
         // this.poExId = id;
@@ -59,6 +60,8 @@ export class View {
         //     if(this.data.items.find(po => { return po.status.value > 3 }) != undefined)
         //         this.isArriving = true;
         // }
+
+      console.log(this.data);
     }
 
     cancelCallback(event) {

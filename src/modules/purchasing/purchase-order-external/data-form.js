@@ -14,7 +14,7 @@ export class DataForm {
     @bindable title;
     // @bindable purchaseRequest;
     formOptions = {
-      cancelText: "Kembali",
+        cancelText: "Kembali",
         saveText: "Simpan",
         deleteText: "Hapus",
         editText: "Ubah",
