@@ -36,7 +36,7 @@ export class List {
                         str += "</ul>";
                         return str;
                     }
-                });debugger;
+                });
                 // return data;
         return {
           total: result.info.total,
