@@ -3,7 +3,7 @@
         <au-input-form
           title.bind="title"
           with.bind="context"
-          options.bind="formOption"
+          options.bind="formOptions"
         >
 
         <div class="row">
@@ -38,16 +38,15 @@
           error.bind="error.unitPaymentOrder.no"
           loader.bind="unitPaymentOrderLoader"             
           read-only.bind="readOnly"   
-          change.delegate="unitPaymentOrderChanged($event)" 
-          if.bind="flag"
+          change.delegate="unitPaymentOrderChanged($event)"
         ></au-autocomplete>
 
         <au-textbox
           label="Supplier"
-          value.bind="data.unitPaymentOrder.supplier.name"
+          value.bind="data.unitPaymentOrder.no.supplier.name || data.unitPaymentOrder.supplier.name"
           error.bind="error.unitPaymentOrder.supplier.name"
           read-only.bind="true"   
-          if.bind="data.unitPaymentOrderId && data.unitPaymentOrder._id"
+          if.bind=data.unitPaymentOrder.no
         ></au-textbox>
 
         <au-textbox

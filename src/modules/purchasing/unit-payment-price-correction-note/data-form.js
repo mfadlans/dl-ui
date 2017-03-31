@@ -8,6 +8,13 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable title;
+    formOptions = {
+      cancelText: "Kembali",
+      saveText: "Simpan",
+      deleteText: "Hapus",
+      editText: "Ubah",
+    }
+
 
     correctionTypes = ["Harga Satuan", "Harga Total"];
     correctionType = "Harga Satuan";
@@ -76,23 +83,23 @@ export class DataForm {
 
                 if (unitReceiptNoteItem.correction) {
                     if (unitReceiptNoteItem.correction.length > 0) {
-                        // var _qty = 0;
-                        // var _hasQtyCorrection = false;
-                        // for (var correction of unitReceiptNoteItem.correction) {
-                        //     if (correction.correctionRemark === "Koreksi Jumlah") {
-                        //         _qty += correction.correctionQuantity;
-                        //         _hasQtyCorrection = true;
-                        //     }
-                        // }
-                        // if (!_hasQtyCorrection) {
-                        //     unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                        //     unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                        //     unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-                        // } else {
-                        //     unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                        //     unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                        //     unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitPaymentPriceCorrectionNoteItem.quantity;
-                        // }
+                        var _qty = 0;
+                        var _hasQtyCorrection = false;
+                        for (var correction of unitReceiptNoteItem.correction) {
+                            if (correction.correctionRemark === "Koreksi Jumlah") {
+                                _qty += correction.correctionQuantity;
+                                _hasQtyCorrection = true;
+                            }
+                        }
+                        if (!_hasQtyCorrection) {
+                            unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                            unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                            unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
+                        } else {
+                            unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+                            unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                            unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitPaymentPriceCorrectionNoteItem.quantity;
+                        }
                         var _qty = unitReceiptNoteItem.correction
                             .map((correction) => {
                                 if (correction.correctionRemark === "Koreksi Jumlah") {
@@ -128,6 +135,7 @@ export class DataForm {
     }
 
     unitPaymentOrderChanged(e) {
+        console.log(this.data);
         var selectedPaymentOrder = e.detail;
         if (selectedPaymentOrder && !this.readOnly) {
             if (!this.readOnly)
