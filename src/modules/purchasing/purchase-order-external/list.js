@@ -32,7 +32,7 @@ export class List {
         }
        },
       { field: "supplier.name", title: "Nama Supplier" },
-      { field: "purchaseRequest", title: "Nomor Purchase Request" },
+      { field: "items", title: "Nomor Purchase Request" },
       { field: "isPosted", title: "Posted",
         formatter: function (value, row, index) {
           return value ? "SUDAH" : "BELUM";
@@ -52,27 +52,26 @@ export class List {
       order: order
     }
 
-
-    return this.service.search(arg)
-      .then(result => {
-        // var data = {}
-        //         data.total = result.info.total;
-        //         data.data = result.data;
-        //         data.data.forEach(s => {
-        //             s.no.toString = function () {
-        //                 var str = "<ul>";
-        //                 for (var item of s.no) {
-        //                     str += `<li>${item.items}</li>`;
-        //                 }
-        //                 str += "</ul>";
-        //                 return str;
-        //             }
-        //         });
-        return {
+    return this.service.search(this.info)
+          .then(result=> {
+            var data = {}
+                data.total = result.info.total;
+                data.data = result.data;
+                data.data.forEach(s => {
+                  s.items.toString = function(){
+                        var str = "<ul>";
+                        for (var item of this) {
+                            str += `<li>${item.purchaseRequest.no}</li>`;
+                        }
+                        str += "</ul>";
+                        return str;
+                  }
+                })
+                 return {
           total: result.info.total,
           data: result.data
         }
-      });
+          })
   }
 
   constructor(router, service) {
@@ -81,7 +80,6 @@ export class List {
     }
 
     contextClickCallback(event) {
-      console.log(this.data);
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
@@ -117,14 +115,14 @@ export class List {
         this.router.navigateToRoute('create');
     }
 
-    // async activate() {
-    //     // this.info.keyword = '';
-    //     // var result = await this.service.search(this.info);
-    //     // this.data = result.data;
-    //     // this.info = result.info;
+    async activate(params) {
+        // this.info.keyword = '';
+        var result = await this.service.search(this.info);
+        this.data = result.data;
+        this.info = result.info;
 
-    //   console.log(this.data);
-    // }
+        console.log(this.data);  
+    }
 
     // loadPage() {
     //     var keyword = this.info.keyword;
@@ -152,20 +150,16 @@ export class List {
     //     }
     // }
 
-    // back() {
-    //     this.router.navigateToRoute('list');
-    // }
-
-    // posting() {
-    //     if (this.dataToBePosting.length > 0) {
-    //         this.service.post(this.dataToBePosting).then(result => {
-    //             this.info.keyword = '';
-    //             this.loadPage();
-    //         }).catch(e => {
-    //             this.error = e;
-    //         })
-    //     }
-    // }
+    posting() {
+        if (this.dataToBePosting.length > 0) {
+            this.service.post(this.dataToBePosting).then(result => {
+                this.info.keyword = '';
+                this.loadPage();
+            }).catch(e => {
+                this.error = e;
+            })
+        }
+    }
 
     
 
@@ -185,7 +179,7 @@ export class List {
     //     this.isPrint = false;
     // }
 
-    // exportPDF(data) {
-    //     this.service.getPdfById(data._id);
-    // }  
+    exportPDF(data) {
+        this.service.getPdfById(data._id);
+    }  
 }
