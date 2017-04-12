@@ -21,13 +21,13 @@ export class List {
     context = ["detail", "cetak"]
 
     columns = [
-      { field: "unit.division.name", title: "Unit" },
-      { field: "no", title: "No. Bon Unit" },
+      { field: "no", title: "Nomor Bon Unit" },
       { field: "date", title: "Tanggal Bon Unit", formatter: function(value, data, index) {
         return moment(value).format("DD MMM YYYY");
       } },
+      { field: "unit.division.name", title: "Unit" },
       { field: "supplier.name", title: "Supplier" },
-      { field: "deliveryOrder.no", title: "No. Surat Jalan" },
+      { field: "deliveryOrder.no", title: "List Nomor Surat Jalan" },
     ];
 
     loader = (info) => {

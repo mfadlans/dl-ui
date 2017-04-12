@@ -14,6 +14,7 @@ export class PurchaseOrderItem {
   productChanged(e) {
     if (this.data.product)
       this.data.productId = this.data.product._id ? this.data.product._id : {};
+      console.log(this.data);
   }
 
   controlOptions = {

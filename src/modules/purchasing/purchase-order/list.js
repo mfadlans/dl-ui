@@ -15,23 +15,23 @@ export class List {
     context = ["detail"]
 
     columns = [
+        { field: "purchaseRequest.no", title: "Nomor PR" },
+        {
+            field: "purchaseRequest.date", title: "Tanggal PR", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        {
+            field: "purchaseRequest.expectedDeliveryDate", title: "Tanggal Diminta Datang", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
         { field: "unit.division.name", title: "Divisi" },
         { field: "unit.name", title: "Unit" },
         { field: "category.name", title: "Kategori" },
-        { field: "purchaseRequest.no", title: "No. PR" },
-        {
-            field: "purchaseRequest.date", title: "Tgl. PR", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        {
-            field: "purchaseRequest.expectedDeliveryDate", title: "Tgl. Diminta Datang", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
         { field: "_createdBy", title: "Staff Pembelian" },
         {
-            field: "isPosted", title: "Posted",
+            field: "isPosted", title: "Status Post",
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }

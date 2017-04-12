@@ -24,16 +24,18 @@ export class List {
     context = ["detail", "cetak"]
 
     columns = [
-      { field: "no", title: "No. Koreksi" },
-      { field: "date", title: "Tgl Koreksi", formatter: function(value, data, index) {
+      { field: "no", title: "Nomor Koreksi" },
+      { field: "date", title: "Tanggal Koreksi", formatter: function(value, data, index) {
         return moment(value).format("DD MMM YYYY");
       } },
-      { field: "unitPaymentOrder.no", title: "No. Surat Perintah Bayar" },
-      { field: "unitPaymentOrder.supplier.name", title: "Supplier" },
-      { field: "invoiceCorrectionNo", title: "No. Invoice Koreksi" },
       { field: "unitPaymentOrder.dueDate", title: "Tanggal Jatuh Tempo", formatter: function(value, data, index) {
         return moment(value).format("DD MMM YYYY");
-      } }, 
+      } },
+      { field: "correctionType", title: "Jenis Koreksi" },
+      { field: "unitPaymentOrder.no", title: "Nomor Surat Perintah Bayar" },
+      { field: "unitPaymentOrder.division.name", title: "Divisi" },
+      { field: "unitPaymentOrder.category.name", title: "Divisi" },
+      { field: "unitPaymentOrder.supplier.name", title: "Supplier" },
     ];
 
     loader = (info) => {
@@ -44,7 +46,10 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            select: [
+            "no", "date", "unitPaymentOrder.dueDate", "correctionType", "unitPaymentOrder.no", "unitPaymentOrder.division.name", "unitPaymentOrder.category.name","unitPaymentOrder.supplier.name"
+        ]
         }
 
         return this.service.search(arg)

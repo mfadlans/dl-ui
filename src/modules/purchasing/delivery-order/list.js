@@ -13,8 +13,12 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "date", title: "tanggal Kedatangan Barang", 
+          formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");}  
+        },
         { field: "supplier.name", title: "Nama Supplier" },
-        { field: "items", title: "List Nomor Eksternal PO", sortable: false }
+        { field: "items", title: "List Nomor PO Eksternal", sortable: false }
     ];
 
     loader = (info) => {

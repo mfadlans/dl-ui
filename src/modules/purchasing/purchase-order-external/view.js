@@ -5,12 +5,12 @@ import {Service} from './service';
 @inject(Router, Service)
 export class View {
 
-    // poExId = "";
-    // isVoid = false;
-    // isArriving = false;
-    // hasCancel = true;
-    // hasEdit = false;
-    // hasDelete = false;
+    poExId = "";
+    isVoid = false;
+    isArriving = false;
+    hasCancel = true;
+    hasEdit = false;
+    hasDelete = false;
     hasUnpost = false;
     prId = "";
 
@@ -23,7 +23,7 @@ export class View {
         
         var id = params.id;
 
-        // this.poExId = id;
+        this.poExId = id;
 
         this.data = await this.service.getById(id);
 
@@ -68,15 +68,15 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
-    }
+    // editCallback(event) {
+    //     this.router.navigateToRoute('edit', { id: this.data._id });
+    // }
 
-    deleteCallback() {
-        this.service.delete(this.data).then(result => {
-            this.cancelCallback(event);
-        });
-    }
+    // deleteCallback() {
+    //     this.service.delete(this.data).then(result => {
+    //         this.cancelCallback(event);
+    //     });
+    // }
 
     showDetail(item) {
         if (item.showDetails)

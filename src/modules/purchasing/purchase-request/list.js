@@ -24,18 +24,23 @@ export class List {
         return ""
       }
     },
+    { field: "no", title: "Nomor PR" },
     {
-      field: "date", title: "Tgl. PR", formatter: function (value, data, index) {
+      field: "date", title: "Tanggal PR", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "no", title: "No. PR" },
+    {
+      field: "expectedDeliveryDate", title: "Tanggal diminta Datang", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      }
+    },
     { field: "unit.division.name", title: "Divisi" },
     { field: "unit.name", title: "Unit" },
     { field: "category.name", title: "Kategori" },
     // { field: "NPWP", title: "NPWP" },
     {
-      field: "isPosted", title: "Posted",
+      field: "isPosted", title: "Status Post",
       formatter: function (value, row, index) {
         return value ? "SUDAH" : "BELUM";
       }
@@ -104,4 +109,15 @@ export class List {
   create() {
     this.router.navigateToRoute('create');
   }
+
+  async activate(params) {
+        // this.info.keyword = '';
+        var result = await this.service.search(this.info);
+        this.data = result.data;
+        this.info = result.info;
+
+        console.log(this.data);  
+    }
 }
+
+

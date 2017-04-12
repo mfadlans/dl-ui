@@ -31,9 +31,13 @@ export class List {
           return moment(value).format("DD MMM YYYY");
         }
        },
+      { field: "expectedDeliveryDate", title: "Tanggal Delivery", 
+          formatter:  function (value, data, index) {
+            return moment(value).format("DD MMM YYYY");
+      } },
       { field: "supplier.name", title: "Nama Supplier" },
-      { field: "items", title: "Nomor Purchase Request" },
-      { field: "isPosted", title: "Posted",
+      { field: "items", title: "List Nomor PR" },
+      { field: "isPosted", title: "Status Post",
         formatter: function (value, row, index) {
           return value ? "SUDAH" : "BELUM";
         }
@@ -101,15 +105,26 @@ export class List {
     }
   }
 
+  // posting() {
+  //   if (this.dataToBePosted.length > 0) {
+  //     this.service.post(this.dataToBePosted).then(result => {
+  //       this.table.refresh();
+  //     }).catch(e => {
+  //       this.error = e;
+  //     })
+  //   }
+  // }
+
   posting() {
-    if (this.dataToBePosted.length > 0) {
-      this.service.post(this.dataToBePosted).then(result => {
-        this.table.refresh();
-      }).catch(e => {
-        this.error = e;
-      })
+        if (this.dataToBePosting.length > 0) {
+            this.service.post(this.dataToBePosting).then(result => {
+                this.info.keyword = '';
+                this.loadPage();
+            }).catch(e => {
+                this.error = e;
+            })
+        }
     }
-  }
 
   create() {
         this.router.navigateToRoute('create');
@@ -149,17 +164,6 @@ export class List {
     //         this.dataToBePosting.splice(index, 1);
     //     }
     // }
-
-    posting() {
-        if (this.dataToBePosting.length > 0) {
-            this.service.post(this.dataToBePosting).then(result => {
-                this.info.keyword = '';
-                this.loadPage();
-            }).catch(e => {
-                this.error = e;
-            })
-        }
-    }
 
     
 

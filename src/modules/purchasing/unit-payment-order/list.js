@@ -18,12 +18,16 @@ export class List {
     context = ["detail", "cetak"]
 
     columns = [
-      { field: "division.name", title: "Divisi" },
-      { field: "supplier.name", title: "Supplier" },
-      { field: "date", title: "Tgl Surat Perinta Bayar", formatter: function(value, data, index) {
+      { field: "no", title: "Nomor Surat Perintah Bayar" },
+      { field: "date", title: "Tanggal Surat Perinta Bayar", formatter: function(value, data, index) {
         return moment(value).format("DD MMM YYYY");
       } },
-      { field: "no", title: "No. Surat Perintah Bayar" },
+      { field: "dueDate", title: "Tanggal Jatuh Tempo", formatter: function(value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      } },
+      { field: "division.name", title: "Divisi" },
+      { field: "category.name", title:"Kategori" },
+      { field: "supplier.name", title: "Supplier" },
       { field: "items", title: "List Nomor Bon Unit - Nomor SJ"},
     ];
 
@@ -35,11 +39,25 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            select: ["no", "date", "supplier.name", "division.name", "items.unitReceiptNote.no", "items.unitReceiptNote.deliveryOrder.no", "category.name"]
         }
 
         return this.service.search(arg)
             .then(result => {
+              var data = {}
+                data.total = result.info.total;
+                data.data = result.data;
+                data.data.forEach(s => {
+                  s.items.toString = function(){
+                        var str = "<ul>";
+                        for (var item of this) {
+                            str += `<li>${item.unitReceiptNote.no}-${item.unitReceiptNote.deliveryOrder.no}</li>`;
+                        }
+                        str += "</ul>";
+                        return str;
+                  }
+                })
               // this.data.unitReceiptNote.toString = function () {
               //   return [this.no, this.deliveryOrder.no]
               //           .filter((item, index) => {
