@@ -5,15 +5,15 @@ import { Config } from "aurelia-api"
 
 export class listItem {
 
-  @bindable listItem;
-  
+  @bindable item;
+
 
   activate(context) {
+    console.log("item")
     this.context = context;
-    this.data = context.data;
-    this.error = context.error;
-    console.log(this.data);
-  }  
+    this.listItem = context.data;
+    this.error = context.error; 
+  }
 
   controlOptions = {
     control: {
@@ -21,5 +21,5 @@ export class listItem {
     }
   };
 
-  
+
 }

@@ -9,12 +9,14 @@ export class NoPurchaseRequest {
   // @bindable prReadOnly = false;
   // @bindable purchaseRequest;
 
+
+
   columns = [
     {header: "Barang", value: "product"}, 
     {header: "Jumlah", value: "deliveredQuantity"}, 
     {header: "Satuan", value: "deliveredUom"}, 
     {header: "Harga Satuan", value: "pricePerDealUnit"}, 
-    {header: "Total Harga", value: ""}, ];
+    {header: "Total Harga", value: "getTotal()"} ];
   
   activate(context) {
     this.data = context.data;

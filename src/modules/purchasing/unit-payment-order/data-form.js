@@ -121,6 +121,7 @@ export class DataForm {
             this.data.items = [];
             this.resetErrorItems();
         }
+        console.log(this.data);
     }
 
     useVatChanged(e) {

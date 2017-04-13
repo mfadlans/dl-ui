@@ -128,13 +128,13 @@
           loader.bind="vatLoader"
           placeholder="cari mata uang"
           key="code"
-          text="code"
+          text="name"
           if.bind=data.useVat
         ></au-autocomplete>
 
         <au-numeric                
           label="Rate PPH"                        
-          value.bind="data.vatRate"               
+          value.bind="data.vat.rate"               
           error.bind="error.vatRate"                  
           read-only.bind="true" 
           format="0"       

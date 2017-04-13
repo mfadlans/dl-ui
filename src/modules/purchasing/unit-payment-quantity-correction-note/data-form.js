@@ -16,10 +16,23 @@ export class DataForm {
         editText: "Ubah",
     } 
 
-    constructor(bindingEngine, element) {
-        this.bindingEngine = bindingEngine;
-        this.element = element;
-    }
+    // constructor(bindingEngine, element) {
+    //     this.bindingEngine = bindingEngine;
+    //     this.element = element;
+    // }
+
+    constructor() {}
+
+    activate() {}
+
+    attached() {}
+
+    // bind() {
+    //   if (this.data && this.data.unitPaymentOrder)
+    //   this.data.unitPaymentOrder.toString = function () {
+    //     return this.unitPaymentOrder;
+    //   }
+    // }
 
     listColumns = [
       { header: "No. PO External", value: "purchaseOrderExternal.no" },
@@ -31,10 +44,10 @@ export class DataForm {
       { header: "Harga Total", value: "priceTotal" },
     ]
 
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
+    // @computedFrom("data._id")
+    // get isEdit() {
+    //     return (this.data._id || '').toString() != '';
+    // }
 
     bind(context) {
     this.context = context;
@@ -58,91 +71,97 @@ export class DataForm {
 
 
     unitPaymentOrderChanged(e) {
-      // if (this.data.selectedPaymentOrder)
-      //     this.data.unitPaymentOrderId = this.data.selectedPaymentOrder._id ? this.data.selectedPaymentOrder._id : {};
+      if (this.data.selectedPaymentOrder)
+          this.data.unitPaymentOrderId = this.data.selectedPaymentOrder.no._id ? this.data.selectedPaymentOrder.no._id : {};
+      console.log(this.data)
 
-        var selectedPaymentOrder = e.detail;
-        if (selectedPaymentOrder && !this.readOnly) {
-            if (!this.readOnly)
-                this.data.items = [];
-            this.data.unitPaymentOrderId = selectedPaymentOrder._id;
-            var _items = [];
-            if (selectedPaymentOrder.items) {
-                for (var unitPaymentOrder of selectedPaymentOrder.items) {
+        // var selectedPaymentOrder = e.detail;
+        // if (selectedPaymentOrder && !this.readOnly) {
+        //     if (!this.readOnly)
+        //         this.data.items = [];
+        //     this.data.unitPaymentOrderId = selectedPaymentOrder.no._id;
+        //     var _items = [];
+        //     if (selectedPaymentOrder.items) {
+        //         for (var unitPaymentOrder of selectedPaymentOrder.items) {
+                    
+        //             for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
+                    
+        //                 var unitQuantityCorrectionNoteItem = {};
+        //                 unitQuantityCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
+        //                 unitQuantityCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
+        //                 unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
+        //                 unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
+        //                 unitQuantityCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
+        //                 unitQuantityCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
+        //                 unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+        //                 unitQuantityCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
+        //                 unitQuantityCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
+        //                 unitQuantityCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
+                      
+        //                 if (unitReceiptNoteItem.correction) {
+        //                     if (unitReceiptNoteItem.correction.length > 0) {
+        //                         var _qty = 0;
+        //                         var _hasQtyCorrection = false;
+        //                         for (var correction of unitReceiptNoteItem.correction) {
+        //                             if (correction.correctionRemark === "Koreksi Jumlah") {
+        //                                 _qty += correction.correctionQuantity;
+        //                                 _hasQtyCorrection = true;
+        //                             }
+        //                         }
+        //                         if (!_hasQtyCorrection) {
+        //                             unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+        //                             unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+        //                             unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
+        //                         } else {
+        //                             unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+        //                             unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+        //                             unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
+        //                         }
+        //                         var _qty = unitReceiptNoteItem.correction
+        //                             .map((correction) => {
+        //                                 if (correction.correctionRemark === "Koreksi Jumlah") {
+        //                                     return correction.correctionQuantity;
+        //                                 }
+        //                                 else {
+        //                                     return 0;
+        //                                 }
+        //                             })
+        //                             .reduce((prev, curr, index) => {
+        //                                 return prev + curr;
+        //                             }, 0);
 
-                    for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
+        //                         unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+        //                         unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+        //                         unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
 
-                        var unitQuantityCorrectionNoteItem = {};
-                        unitQuantityCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
-                        unitQuantityCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
-                        unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
-                        unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
-                        unitQuantityCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
-                        unitQuantityCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
-                        unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
-                        unitQuantityCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
-                        unitQuantityCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
-                        unitQuantityCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
+        //                     } else {
+        //                         unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+        //                         unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+        //                         unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+        //                     }
+        //                 } else {
+        //                     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+        //                     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+        //                     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+        //                 }
+        //                 _items.push(unitQuantityCorrectionNoteItem);
+        //             }
+        //         }
+        //         this.data.items = _items;
+        //         console.log(this.data)
+        //     }
+        //     else {
+        //         this.data.items = [];
+        //     }
+        // }
+        // else {
+        //     this.data.items = [];
+        // }
+        // this.resetErrorItems();
+    }
 
-                        if (unitReceiptNoteItem.correction) {
-                            if (unitReceiptNoteItem.correction.length > 0) {
-                                var _qty = 0;
-                                var _hasQtyCorrection = false;
-                                for (var correction of unitReceiptNoteItem.correction) {
-                                    if (correction.correctionRemark === "Koreksi Jumlah") {
-                                        _qty += correction.correctionQuantity;
-                                        _hasQtyCorrection = true;
-                                    }
-                                }
-                                if (!_hasQtyCorrection) {
-                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-                                } else {
-                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
-                                }
-                                var _qty = unitReceiptNoteItem.correction
-                                    .map((correction) => {
-                                        if (correction.correctionRemark === "Koreksi Jumlah") {
-                                            return correction.correctionQuantity;
-                                        }
-                                        else {
-                                            return 0;
-                                        }
-                                    })
-                                    .reduce((prev, curr, index) => {
-                                        return prev + curr;
-                                    }, 0);
-
-                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                                unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-
-                            } else {
-                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                                unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
-                                unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
-                            }
-                        } else {
-                            unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                            unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
-                            unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
-                        }
-                        _items.push(unitQuantityCorrectionNoteItem);
-                    }
-                }
-                this.data.items = _items;
-            }
-            else {
-                this.data.items = [];
-            }
-        }
-        else {
-            this.data.items = [];
-        }
-        this.resetErrorItems();
+    showData() {
+        console.log(this.data);
     }
 
     resetErrorItems() {
