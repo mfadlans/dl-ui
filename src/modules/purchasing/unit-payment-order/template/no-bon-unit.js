@@ -9,32 +9,33 @@ export class NoPurchaseRequest {
   // @bindable prReadOnly = false;
   // @bindable purchaseRequest;
 
-
+  total;
 
   columns = [
-    {header: "Barang", value: "product"}, 
-    {header: "Jumlah", value: "deliveredQuantity"}, 
-    {header: "Satuan", value: "deliveredUom"}, 
-    {header: "Harga Satuan", value: "pricePerDealUnit"}, 
-    {header: "Total Harga", value: "getTotal()"} ];
-  
+    { header: "Barang", value: "product" },
+    { header: "Jumlah", value: "deliveredQuantity" },
+    { header: "Satuan", value: "deliveredUom" },
+    { header: "Harga Satuan", value: "pricePerDealUnit" },
+    { header: "Total Harga", value: "total" }
+  ];
+
   activate(context) {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
     console.log(this.data);
 
-    
+
   }
 
   // purchaseRequestFilter = { isPosted: true  };
 
   get unitReceiptNoteBySupplierByUnit() {
-        return UnitReceiptNoteBySupplierByUnit;
-    }
+    return UnitReceiptNoteBySupplierByUnit;
+  }
 
   controlOptions = {
-    control: { 
+    control: {
       length: 12
     }
   };

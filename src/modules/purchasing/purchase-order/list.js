@@ -46,6 +46,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
+            select: ["purchaseRequest.no", "purchaseRequest.date", "purchaseRequest.expectedDeliveryDate", "unit.division.name", "unit.name", "category.name", "_createdBy", "isPosted"],
             order: order
         }
 
