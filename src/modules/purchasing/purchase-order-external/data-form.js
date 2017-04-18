@@ -9,8 +9,10 @@ var VatLoader = require('../../../loader/vat-loader');
 export class DataForm {
     @bindable readOnly;
     // @bindable prReadOnly = false;
-    @bindable data = {};
-    @bindable error = {};
+    // @bindable data = {};
+    // @bindable error = {};
+    @bindable data;
+    @bindable error;
     @bindable title;
     // @bindable purchaseRequest;
     formOptions = {

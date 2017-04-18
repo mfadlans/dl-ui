@@ -8,6 +8,8 @@ export class NoPurchaseRequest {
   // @bindable readOnly = false;
   // @bindable prReadOnly = false;
   // @bindable purchaseRequest;
+  @bindable data;
+  
 
   columns = [
     {header: "Barang", value: "product"}, 
