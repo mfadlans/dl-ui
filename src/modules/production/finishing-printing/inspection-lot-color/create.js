@@ -12,12 +12,12 @@ export class Create {
     this.router = router;
   }
 
-  created(owner, self) {
-    this.data = {items:[]}
-  }
-
   cancelCallback(event) {
     this.__goToList();
+  }
+
+  bind() {
+    this.data = { items: [] };
   }
 
   saveCallback(event) {  
