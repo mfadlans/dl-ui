@@ -19,7 +19,10 @@ export class NoPurchaseRequest {
     {header: "Satuan", value: "dealUom"}, 
     {header: "Konversi", value: "conversion"}, 
     {header: "Harga", value: "priceBeforeTax"},
-    {header: "Incl Ppn?", value: "useIncomeTax"}, 
+    {header: "Include Ppn?", value: "useIncomeTax", 
+      formatter: function (value, row, index) {
+        return value ? "Ya" : "Tidak";
+      }}, 
     {header: "Ket.", value: "remark"} ];
   
   activate(context) {

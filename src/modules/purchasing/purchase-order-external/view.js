@@ -20,7 +20,9 @@ export class View {
     }
 
     async activate(params) {
-        
+        var locale = 'id-ID';
+        var moment = require('moment');
+        moment.locale(locale);
         var id = params.id;
 
         this.poExId = id;
@@ -42,12 +44,9 @@ export class View {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
-        this.data.vat.toString = function () {
-            return [this.name, this.rate]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
-        }
+
+
+
 
         // if (this.data.items) {
         //     this.data.items.forEach(item => {
@@ -93,13 +92,13 @@ export class View {
     //     })
     // }
 
-    unpost() {
-        this.service.unpost(this.poExId).then(result => {
-            this.cancelCallback(event);
-        }).catch(e => {
-            this.error = e;
-        })
-    }
+    // unpost() {
+    //     this.service.unpost(this.poExId).then(result => {
+    //         this.cancelCallback(event);
+    //     }).catch(e => {
+    //         this.error = e;
+    //     })
+    // }
 
     close() {
         this.service.close(this.poExId).then(result => {

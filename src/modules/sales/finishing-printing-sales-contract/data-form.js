@@ -2,24 +2,40 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 var moment = require('moment');
 import { Service } from './service';
 
+var BuyersLoader = require('../../../loader/buyers-loader');
+var ComodityLoader = require('../../../loader/comodity-loader');
+var OrderTypeLoader = require('../../../loader/order-type-loader');
+var ProductLoader = require('../../../loader/products-loader');
+var MaterialConstructionLoader = require('../../../loader/material-loader');
+var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
+var UomLoader = require('../../../loader/uom-loader');
+var QualityLoader = require('../../../loader/quality-loader');
+
 @inject(BindingEngine, Element, Service)
 export class DataForm {
   @bindable readOnly = false;
-  @bindable data = {};
+  // @bindable data;
+  // @bindable error;
+   @bindable data = {};
   @bindable error = {};
+
+
+  @bindable title;
 
   lampHeader = [{ header: "Standar Lampu" }];
   
   pointSystemOptions = [10, 4];
-  
+
+  tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
+    
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
     this.element = element;
     this.service = service;
 
-    this.filterMaterial = {
-      "tags" :"material"
-    };
+    // this.filterMaterial = {
+    //   "tags" :"material"
+    // };
   }
 
   @computedFrom("data.dataId")
@@ -83,16 +99,25 @@ export class DataForm {
                 this.designMotiveChanged({});
             }
         }
+      console.log('order type changed')
       }
 
   
 
-  materialChanged(e) {
-    var selectedMaterial = e.detail || {};
-    if (selectedMaterial) {
-      this.data.materialId = selectedMaterial._id ? selectedMaterial._id : "";
+
+  // materialChanged(e) {
+  //   // var selectedMaterial = e.detail || {};
+  //   // if (selectedMaterial) {
+  //   //   this.data.materialId = selectedMaterial._id ? selectedMaterial._id : "";
+  //   // }
+  //   console.log('material changed')
+  //   console.log(this.data)
+  // }
+
+  productChanged(e) {
+        console.log('product changed')
+        console.log(this.data)
     }
-  }
 
   designMotiveChanged(e){
     var selectedMotive = e.detail || {};
@@ -174,6 +199,14 @@ export class DataForm {
     }
   }
 
+  comodityChanged(e) {
+    console.log('comodity changed')
+  }
+
+  orderChanged(e) {
+    console.log('order changed')
+  }
+
   agentChanged(e) {
     var selectedAgent = e.detail|| {};
     if (selectedAgent) {
@@ -237,5 +270,37 @@ export class DataForm {
           };
       this.data.details.push(newDetail);
     };
+  }
+
+  get buyersLoader() {
+        return BuyersLoader;
+    }
+
+  get comodityLoader() {
+    return ComodityLoader;
+  }
+
+  get orderTypeLoader() {
+    return OrderTypeLoader;
+  }
+
+  get productLoader() {
+        return ProductLoader;
+    }
+
+  get materialConstructionLoader() {
+    return MaterialConstructionLoader;
+  }
+
+  get yarnMaterialLoader() {
+    return YarnMaterialLoader;
+  }
+
+  get uomLoader() {
+    return UomLoader;
+  }
+
+  get qualityLoader() {
+    return QualityLoader;
   }
 }

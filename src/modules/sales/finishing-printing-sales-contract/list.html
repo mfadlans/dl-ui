@@ -1,4 +1,27 @@
 <template>
+  <!--<div class="display-wrapper">-->
+  <h1 class="page-header">Sales Contract - Finishing & Printing</h1>
+  <au-table 
+    view-model.ref="table" 
+    data.bind="loader" 
+    columns.bind="columns" 
+    sortable.bind="true" 
+    page-size="25" 
+    context.bind="context" 
+    context-click.delegate="contextClickCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)" 
+    selectable.bind="true">
+      <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="create()">Buat</button>
+      </div>
+  </au-table>
+</template>
+
+
+
+
+
+<!--<template>
      
     <div class="display-wrapper">
         <h1 class="page-header">Sales Contract - Finishing & Printing</h1>
@@ -48,4 +71,4 @@
         <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
         <hr/>
     </div>
-</template>
+</template>-->

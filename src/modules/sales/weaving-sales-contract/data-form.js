@@ -190,6 +190,7 @@ export class DataForm {
 
     productChanged(e) {
         console.log('product changed')
+        console.log(this.data)
     }
 
     yarnMaterialChanged(e) {

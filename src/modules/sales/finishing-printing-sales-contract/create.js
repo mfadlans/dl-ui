@@ -8,10 +8,18 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
-        this.error = {};
+        // this.data = {};
+        // this.error = {};
     }
 
+    activate(params) {
+
+    }
+
+    bind() {
+        this.data = this.data || {};
+        this.error = {};
+    }
 
     back() {
         this.router.navigateToRoute('list');

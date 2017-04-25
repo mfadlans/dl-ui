@@ -27,8 +27,17 @@
         <au-multiline label="Keterangan Komoditas" placeholder="input keterangan" value.bind="data.comodityDescription" error.bind="error.comodityDescription"
           read-only.bind="(readOnly)" keypress.delegate="eenterEventDelegate($event)"></au-multiline>
 
-        <au-autocomplete value.bind="data.material" error.bind="error.material" label="Material" change.delegate="productChanged($event)"
-          loader.bind="productLoader" query.bind="tagsFilter" placeholder="cari material " key="tags" text="name" read-only.bind="(readOnly || isEdit)">
+        <au-autocomplete 
+        value.bind="data.material" 
+        error.bind="error.material" 
+        label="Material" 
+        change.delegate="productChanged($event)"
+          loader.bind="productLoader" 
+          query.bind="tagsFilter" 
+          placeholder="cari material " 
+          key="tags" 
+          text="name" 
+          read-only.bind="(readOnly || isEdit)">
         </au-autocomplete>
 
         <au-autocomplete value.bind="data.materialConstruction" error.bind="error.materialConstruction" label="Konstruksi Material"

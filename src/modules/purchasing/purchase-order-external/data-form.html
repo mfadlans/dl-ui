@@ -7,10 +7,6 @@
       options.bind="formOptions"
     >
 
-    <div slot="actions" class="btn-group">
-    <button class="btn btn-primary" click.delegate="context.unpost($event)" if.one-way="context.hasUnpost">Unpost</button>
-    </div>
-
     <div class="row">
     <div class="col-md-6">
 
@@ -99,7 +95,7 @@
           read-only.bind="readOnly"   
           change.delegate="vatChanged($event)"
           loader.bind="vatLoader"
-          key="_id"
+          key="code"
           text="name"
         ></au-autocomplete>
         
@@ -171,3 +167,4 @@
         
             </form>
 </template>-->
+ 

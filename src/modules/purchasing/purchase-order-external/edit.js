@@ -27,12 +27,7 @@ export class Edit {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
-        this.data.vat.toString = function () {
-            return [this.name, this.rate]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
-        }
+
     }
 
     cancelCallback(event) {
