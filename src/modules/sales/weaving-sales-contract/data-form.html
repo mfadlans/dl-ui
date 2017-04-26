@@ -90,12 +90,29 @@
           read-only.bind="(readOnly || isEdit)" if.bind="isTermOfShipment">
         </au-textbox>
 
-        <au-autocomplete label="Syarat Pembayaran" placeholder="cari syarat pembayaran" value.bind="data.termOfPayment" error.bind="error.termOfPayment"
-          change.delegate="termOfPaymentChanged($event)" read-only.bind="(readOnly || isEdit)" key="code" text="termOfPayment"
-          loader.bind="termOfPaymentLoader" query.bind="termOfPaymentFilter" if.bind="istermOfPayment"></au-autocomplete>
+        <au-autocomplete 
+        label="Syarat Pembayaran" 
+        placeholder="cari syarat pembayaran" 
+        value.bind="data.termOfPayment" 
+        error.bind="error.termOfPayment"
+          change.delegate="termOfPaymentChanged($event)" 
+          read-only.bind="(readOnly || isEdit)" 
+          key="code" 
+          text="termOfPayment"
+          loader.bind="termOfPaymentLoader" 
+          query.bind="termOfPaymentFilter" 
+          if.bind="istermOfPayment"
+          ></au-autocomplete>
 
-        <au-autocomplete value.bind="data.accountBank" error.bind="error.accountBank" label="Pembayaran ke Rekening" change.delegate="accountBankChanged($event)"
-          loader.bind="accountBankLoader" placeholder="cari Pembayaran ke Rekening" key="code" read-only.bind="(readOnly || isEdit)">
+        <au-autocomplete 
+        value.bind="data.accountBank" 
+        error.bind="error.accountBank" 
+        label="Pembayaran ke Rekening" 
+        change.delegate="accountBankChanged($event)"
+          loader.bind="accountBankLoader" 
+          placeholder="cari Pembayaran ke Rekening" 
+          key="code" 
+          read-only.bind="(readOnly || isEdit)">
         </au-autocomplete>
 
         <au-textbox label="Mata Uang" value.bind="data.accountBank.currency.code" error.bind="error.accountBank.currency.code" read-only="true"
@@ -108,7 +125,12 @@
 
         <au-textbox label="Dikirim ke" placeholder="input tujuan" value.bind="data.deliveredTo" error.bind="error.deliveredTo" read-only.bind="(readOnly || isEdit)"></au-textbox>
 
-        <au-datepicker label="Jadwal Pengiriman" value.bind="data.deliverySchedule " error.bind="error.deliverySchedule" read-only.bind="(readOnly || isEdit)"></au-datepicker>
+        <au-datepicker 
+        label="Jadwal Pengiriman" 
+        value.bind="data.deliverySchedule " 
+        error.bind="error.deliverySchedule" 
+        read-only.bind="(readOnly || isEdit)"
+        ></au-datepicker>
    
         <au-multiline label="Keterangan Shipment" placeholder="input keterangan shipment" value.bind="data.shipmentDescription" error.bind="error.shipmentDescription" read-only.bind="(readOnly || isEdit)" if.bind="isExport"></au-multiline>
 
@@ -117,8 +139,17 @@
         <au-multiline label="Remark" placeholder="input remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly || isEdit)"
           if.bind="isRemark" keypress.delegate="enterEventDelegate($event)"></au-multiline>
 
-        <au-autocomplete label="Agent" placeholder="cari agent" value.bind="data.agent" error.bind="error.agent" read-only.bind="(readOnly || isEdit)"
-          if.bind="isExport" change.delegate="agentChanged($event)" loader.bind="agentLoader" key="code"></au-autocomplete>
+        <au-autocomplete 
+        label="Agent" 
+        placeholder="cari agent" 
+        value.bind="data.agent" 
+        error.bind="error.agent" 
+        read-only.bind="(readOnly || isEdit)"
+          if.bind="isExport" 
+          change.delegate="agentChanged($event)" 
+          loader.bind="agentLoader" 
+          key="code"
+        ></au-autocomplete>
 
         <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.comission" error.bind="error.comission" read-only.bind="(readOnly || isEdit)"
           if.bind="isComission"></au-textbox>

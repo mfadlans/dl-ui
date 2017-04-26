@@ -14,4 +14,8 @@ export class DetailItem {
       length: 12
     }
   }
+
+  cancelCallback(event) {
+
+  }
 }

@@ -15,13 +15,17 @@ export class Edit {
         this.data = await this.service.getById(id);
     }
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+    // view(data) {
+    //     this.router.navigateToRoute('view', { id: this.data._id });
+    // }
+
+    cancelCallback(event) {
+      this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    save() {
+    saveCallback(event) {
         this.service.update(this.data).then(result => {
-            this.view();
+            this.cancelCallback();
         }).catch(e => {
             this.error = e;
         })

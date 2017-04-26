@@ -5,6 +5,7 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class Create {
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -21,14 +22,15 @@ export class Create {
         this.error = {};
     }
 
-    back() {
-        this.router.navigateToRoute('list');
+    cancelCallback(event) {
+      this.router.navigateToRoute('list');
     }
+    
 
-    save() {
+    saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
-                this.back();
+                this.cancelCallback();
             })
             .catch(e => {
                 this.error = e;

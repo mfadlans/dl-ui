@@ -10,21 +10,45 @@ var MaterialConstructionLoader = require('../../../loader/material-loader');
 var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
 var UomLoader = require('../../../loader/uom-loader');
 var QualityLoader = require('../../../loader/quality-loader');
+var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
+var AccountBankLoader = require('../../../loader/account-banks-loader');
+var AgentLoader = require('../../../loader/agent-loader');
+var DesignMotiveLoader = require('../../../loader/design-motive-loader');
 
 @inject(BindingEngine, Element, Service)
 export class DataForm {
-  @bindable readOnly = false;
+  // @bindable readOnly = false;
+  @bindable readOnly;
   // @bindable data;
   // @bindable error;
-   @bindable data = {};
+  @bindable data = {};
   @bindable error = {};
-
-
   @bindable title;
+  formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
+
+  bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
+
+        this.cancelCallback = this.context.cancelCallback;
+        this.deleteCallback = this.context.deleteCallback;
+        this.editCallback = this.context.editCallback;
+        this.saveCallback = this.context.saveCallback;
+
+        console.log(this.data);
+    }
 
   lampHeader = [{ header: "Standar Lampu" }];
   
   pointSystemOptions = [10, 4];
+
+  termOfPaymentFilter = {};
 
   tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
     
@@ -37,6 +61,7 @@ export class DataForm {
     //   "tags" :"material"
     // };
   }
+  
 
   @computedFrom("data.dataId")
   get isEdit() {
@@ -245,10 +270,10 @@ export class DataForm {
     }
   }
 
-  bind() {
-    this.data = this.data || {};
-    this.data.details = this.data.details || [];
-  }
+  // bind() {
+  //   this.data = this.data || {};
+  //   this.data.details = this.data.details || [];
+  // }
 
 
   get detailHeader(){
@@ -302,5 +327,21 @@ export class DataForm {
 
   get qualityLoader() {
     return QualityLoader;
+  }
+
+  get termOfPaymentLoader() {
+    return TermOfPaymentLoader;
+  }
+
+  get accountBankLoader() {
+    return AccountBankLoader;
+  }
+
+  get agentLoader() {
+    return AgentLoader;
+  }
+
+  get designMotiveLoader() {
+    return DesignMotiveLoader;
   }
 }
