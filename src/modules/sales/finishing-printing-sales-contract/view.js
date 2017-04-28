@@ -17,6 +17,13 @@ export class View {
         moment.locale(locale);
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        this.data.buyer.toString = function () {
+          return [this.code, this.name]
+            .filter((item, index) => {
+              return item && item.toString().trim().length > 0;
+            }).join(" - ");
+        }
         
         this.data.accountBank.toString = function () {
           return [this.accountName, this.bankName, this.accountNumber]
