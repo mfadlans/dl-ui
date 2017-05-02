@@ -261,6 +261,7 @@ export class DataForm {
 
   useIncomeTaxChanged(e) {
         this.data.details.length=0;
+        console.log('tax changed')
     }
 
   qualityChanged(e){

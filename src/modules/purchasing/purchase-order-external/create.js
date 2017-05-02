@@ -27,9 +27,10 @@ export class Create {
     }
 
     saveCallback(event) {
+      debugger
         this.service.create(this.data)
             .then(result => {
-                this. cancelCallback(event);
+                this. cancelCallback();
             })
             .catch(e => {
                 this.error = e;
