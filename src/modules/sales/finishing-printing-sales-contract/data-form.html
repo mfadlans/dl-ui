@@ -81,7 +81,7 @@
               value.bind="data.material"    
               error.bind="error.material"     
               read-only.bind="(readOnly || isEdit)"	
-              change.delegate="productChanged($event)" 
+              change.delegate="materialChanged($event)" 
               loader.bind="productLoader"
               query.bind="tagsFilter"
               placeholder="cari material"

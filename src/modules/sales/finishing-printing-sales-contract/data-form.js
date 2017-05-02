@@ -25,33 +25,33 @@ export class DataForm {
   @bindable error = {};
   @bindable title;
   formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah",
-    }
+    cancelText: "Kembali",
+    saveText: "Simpan",
+    deleteText: "Hapus",
+    editText: "Ubah",
+  }
 
   bind(context) {
-        this.context = context;
-        this.data = this.context.data;
-        this.error = this.context.error;
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+    this.cancelCallback = this.context.cancelCallback;
+    this.deleteCallback = this.context.deleteCallback;
+    this.editCallback = this.context.editCallback;
+    this.saveCallback = this.context.saveCallback;
 
-        console.log(this.data);
-    }
+    console.log(this.data);
+  }
 
   lampHeader = [{ header: "Standar Lampu" }];
-  
+
   pointSystemOptions = [10, 4];
 
   termOfPaymentFilter = {};
 
   tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
-    
+
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
     this.element = element;
@@ -61,7 +61,7 @@ export class DataForm {
     //   "tags" :"material"
     // };
   }
-  
+
 
   @computedFrom("data.dataId")
   get isEdit() {
@@ -69,121 +69,130 @@ export class DataForm {
   }
 
   @computedFrom("data.orderType")
-  get isPrinting(){
-      this.printing=false;
-      if(this.data.orderType){
-        if(this.data.orderType.name.toLowerCase()=="printing"){
-          this.printing=true;
-        }
+  get isPrinting() {
+    this.printing = false;
+    if (this.data.orderType) {
+      if (this.data.orderType.name.toLowerCase() == "printing") {
+        this.printing = true;
       }
-    
+    }
+
     return this.printing;
   }
 
   @computedFrom("data.pointSystem")
-  get point(){
-    this.pointSyst=false;
-    if(this.data.pointSystem===4){
-      this.pointSyst=true;
+  get point() {
+    this.pointSyst = false;
+    if (this.data.pointSystem === 4) {
+      this.pointSyst = true;
     }
     return this.pointSyst;
   }
-  
+
   @computedFrom("data.buyer")
-  get buyerType(){
-    this.ekspor=false;
-    if(this.data.buyer){
-      if(this.data.buyer.type.toLowerCase()=="ekspor"||this.data.buyer.type.toLowerCase()=="export"){
-          this.ekspor=true;
-        }
+  get buyerType() {
+    this.ekspor = false;
+    if (this.data.buyer) {
+      if (this.data.buyer.type.toLowerCase() == "ekspor" || this.data.buyer.type.toLowerCase() == "export") {
+        this.ekspor = true;
+      }
     }
-      return this.ekspor;
+    return this.ekspor;
   }
 
   @computedFrom("data.buyer")
-  get isFilterPayment(){
+  get isFilterPayment() {
     this.filterpayment = {
-        "isExport": false
-      };
-      if(this.data.buyer){
-        if(this.data.buyer.type.toLowerCase()=="ekspor"||this.data.buyer.type.toLowerCase()=="export"){
-              this.filterpayment = {
-                "isExport": true
-              };
-            }
+      "isExport": false
+    };
+    if (this.data.buyer) {
+      if (this.data.buyer.type.toLowerCase() == "ekspor" || this.data.buyer.type.toLowerCase() == "export") {
+        this.filterpayment = {
+          "isExport": true
+        };
       }
-      return this.filterpayment;
+    }
+    return this.filterpayment;
   }
-  
-    orderChanged(e){
-        var selectedOrder=e.detail || {};
-        if(selectedOrder){
-            this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
-            if (!this.readOnly) {
-                this.data.designMotive={};
-                this.designMotiveChanged({});
-            }
-        }
-      console.log('order type changed')
+
+  orderChanged(e) {
+    // var selectedOrder=e.detail || {};
+    var selectedOrder = this.data.orderType;
+    if (selectedOrder) {
+      this.data.orderTypeId = selectedOrder._id ? selectedOrder._id : "";
+      if (!this.readOnly) {
+        this.data.designMotive = {};
+        this.designMotiveChanged({});
       }
+    }
+    console.log('order type changed')
+  }
 
-  
 
 
-  // materialChanged(e) {
-  //   // var selectedMaterial = e.detail || {};
-  //   // if (selectedMaterial) {
-  //   //   this.data.materialId = selectedMaterial._id ? selectedMaterial._id : "";
-  //   // }
-  //   console.log('material changed')
-  //   console.log(this.data)
-  // }
+
+  materialChanged(e) {
+    // var selectedMaterial = e.detail || {};
+    var selectedMaterial = this.data.material;
+    if (selectedMaterial) {
+      this.data.materialId = selectedMaterial._id ? selectedMaterial._id : "";
+    }
+    console.log('material changed')
+  }
 
   productChanged(e) {
-        console.log('product changed')
-        console.log(this.data)
-    }
+    console.log('product changed')
+    console.log(this.data)
+  }
 
-  designMotiveChanged(e){
-    var selectedMotive = e.detail || {};
+  designMotiveChanged(e) {
+    // var selectedMotive = e.detail || {};
+    var selectedMotive = this.data.designMotive;
     if (selectedMotive) {
       this.data.designMotiveId = selectedMotive._id ? selectedMotive._id : "";
     }
+    console.log('design changed')
   }
 
   constructionChanged(e) {
-    var selectedConstruction = e.detail || {};
+    // var selectedConstruction = e.detail || {};
+    var selectedConstruction = this.data.materialConstruction;
     if (selectedConstruction) {
       this.data.materialConstructionId = selectedConstruction._id ? selectedConstruction._id : "";
     }
+    console.log('material construction changed')
   }
 
-  termOfPaymentChanged(e){
-    var selectedPayment=e.detail || {};
+  termOfPaymentChanged(e) {
+    // var selectedPayment=e.detail || {};
+    var selectedPayment = this.data.termOfPayment;
     if (selectedPayment) {
       this.data.termOfPaymentId = selectedPayment._id ? selectedPayment._id : "";
     }
-    
+    console.log('term of payment changed')
   }
 
-  comodityChanged(e){
-    var selectedComodity = e.detail || {};
+  comodityChanged(e) {
+    // var selectedComodity = e.detail || {};
+    var selectedComodity = this.data.comodity;
     if (selectedComodity) {
       this.data.comodityId = selectedComodity._id ? selectedComodity._id : "";
     }
+    console.log('comodity changed')
   }
 
-  pointChanged(e){
-    var selectedPoint= e.srcElement.value;
-    this.isPoint=false;
-    if(selectedPoint==4){
-      this.isPoint=true;
+  pointChanged(e) {
+    var selectedPoint = e.srcElement.value;
+    this.isPoint = false;
+    if (selectedPoint == 4) {
+      this.isPoint = true;
     }
-    this.data.pointLimit=0;
+    this.data.pointLimit = 0;
   }
 
   uomChanged(e) {
-    var selectedUom = e.detail;
+    // var selectedUom = e.detail;
+    var selectedUom = this.data.uom;
     if (selectedUom) {
       this.data.uomId = selectedUom._id;
       if (this.data.details) {
@@ -193,82 +202,85 @@ export class DataForm {
         }
       }
     }
+    console.log('uom changed')
   }
 
   buyerChanged(e) {
-    var selectedBuyer = e.detail;
+    //  this.data.buyerId= this.data.buyer._id;
+    // var selectedBuyer = e.detail;
+    var selectedBuyer = this.data.buyer;
     if (selectedBuyer) {
       this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
-      if(selectedBuyer.type.toLowerCase()=="ekspor"||selectedBuyer.type.toLowerCase()=="export"){
+      if (selectedBuyer.type.toLowerCase() == "ekspor" || selectedBuyer.type.toLowerCase() == "export") {
         this.filterpayment = {
           "isExport": true
         };
       }
-      else{
+      else {
         this.filterpayment = {
           "isExport": false
         };
       }
-      if (!this.readOnly) {
-          this.data.agent={};
-          this.agentChanged({});
-          this.data.termOfPayment={};
-          this.termOfPaymentChanged({});
-          this.data.designMotive={};
-          this.designMotiveChanged({});
-          this.data.remark="";
-          this.data.useIncomeTax=false;
-          this.data.termOfShipment="";
-      }
-          
+      // if (!this.readOnly) {
+      this.data.agent = {};
+      // this.agentChanged({});
+      this.data.termOfPayment = {};
+      // this.termOfPaymentChanged({});
+      this.data.designMotive = {};
+      // this.designMotiveChanged({});
+      this.data.remark = "";
+      this.data.useIncomeTax = false;
+      this.data.termOfShipment = "";
+      // }    
     }
-  }
-
-  comodityChanged(e) {
-    console.log('comodity changed')
-  }
-
-  orderChanged(e) {
-    console.log('order changed')
+    console.log('buyer changed')
   }
 
   agentChanged(e) {
-    var selectedAgent = e.detail|| {};
+    // var selectedAgent = e.detail|| {};
+    var selectedAgent = this.data.agent;
     if (selectedAgent) {
       this.data.agentId = selectedAgent._id ? selectedAgent._id : "";
-      if(!this.readOnly){
-        this.data.comission="";
+      if (!this.readOnly) {
+        this.data.comission = "";
       }
     }
-    else{
-      this.data.comission="";
+    else {
+      this.data.comission = "";
     }
+    console.log('agent changed')
   }
 
   yarnChanged(e) {
-    var selectedYarn = e.detail || {};
+    // var selectedYarn = e.detail || {};
+    var selectedYarn = this.data.yarnMaterial;
     if (selectedYarn) {
       this.data.yarnMaterialId = selectedYarn._id ? selectedYarn._id : "";
     }
+    console.log('yarn changed')
   }
 
   bankChanged(e) {
-    var selectedAccount = e.detail || {};
+    // var selectedAccount = e.detail || {};
+    var selectedAccount = this.data.accountBank;
     if (selectedAccount) {
       this.data.accountBankId = selectedAccount._id ? selectedAccount._id : "";
     }
+    console.log('bank changed')
   }
 
   useIncomeTaxChanged(e) {
-        this.data.details.length=0;
-        console.log('tax changed')
-    }
+    // this.data.details.length=0;
+    console.log('tax changed')
+  }
 
-  qualityChanged(e){
-    var selectedQuality = e.detail || {};
+  qualityChanged(e) {
+    // var selectedQuality = e.detail || {};
+    var selectedQuality = this.data.quality;
     if (selectedQuality) {
       this.data.qualityId = selectedQuality._id ? selectedQuality._id : "";
     }
+    console.log('quality changed')
   }
 
   // bind() {
@@ -277,30 +289,30 @@ export class DataForm {
   // }
 
 
-  get detailHeader(){
-    if(!this.data.useIncomeTax){
+  get detailHeader() {
+    if (!this.data.useIncomeTax) {
       return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }];
     }
-    else{
-      return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }, {header: "Include PPn?"}]; 
+    else {
+      return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }, { header: "Include PPn?" }];
     }
-  } 
-  
-  get addDetail(){
+  }
+
+  get addDetail() {
     return (event) => {
-      var newDetail=   {
-            currency: this.data.accountBank.currency,
-            color: '',
-            price: 0,
-            UseIncomeTax : false
-          };
+      var newDetail = {
+        currency: this.data.accountBank.currency,
+        color: '',
+        price: 0,
+        UseIncomeTax: false
+      };
       this.data.details.push(newDetail);
     };
   }
 
   get buyersLoader() {
-        return BuyersLoader;
-    }
+    return BuyersLoader;
+  }
 
   get comodityLoader() {
     return ComodityLoader;
@@ -311,8 +323,8 @@ export class DataForm {
   }
 
   get productLoader() {
-        return ProductLoader;
-    }
+    return ProductLoader;
+  }
 
   get materialConstructionLoader() {
     return MaterialConstructionLoader;

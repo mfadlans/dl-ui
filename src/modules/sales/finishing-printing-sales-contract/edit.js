@@ -13,7 +13,13 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        
+
+        this.data.agent.toString = function () {
+          return [this.code, this.name]
+            .filter((item, index) => {
+             return item && item.toString().trim().length > 0;
+        }).join("-");
+    }
     }
 
     // view(data) {
