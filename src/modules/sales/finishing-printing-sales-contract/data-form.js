@@ -221,17 +221,17 @@ export class DataForm {
           "isExport": false
         };
       }
-      // if (!this.readOnly) {
-      this.data.agent = {};
-      // this.agentChanged({});
-      this.data.termOfPayment = {};
-      // this.termOfPaymentChanged({});
-      this.data.designMotive = {};
-      // this.designMotiveChanged({});
-      this.data.remark = "";
-      this.data.useIncomeTax = false;
-      this.data.termOfShipment = "";
-      // }    
+      if (!this.readOnly) {
+        this.data.agent = {};
+        this.agentChanged({});
+        this.data.termOfPayment = {};
+        this.termOfPaymentChanged({});
+        this.data.designMotive = {};
+        this.designMotiveChanged({});
+        this.data.remark = "";
+        this.data.useIncomeTax = false;
+        this.data.termOfShipment = "";
+      }
     }
     console.log('buyer changed')
   }
