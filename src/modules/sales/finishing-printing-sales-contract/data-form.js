@@ -209,6 +209,15 @@ export class DataForm {
     //  this.data.buyerId= this.data.buyer._id;
     // var selectedBuyer = e.detail;
     var selectedBuyer = this.data.buyer;
+    this.data.agent = "";
+    this.agentChanged({});
+    this.data.termOfPayment = "";
+    this.termOfPaymentChanged({});
+    this.data.designMotive = {};
+    this.designMotiveChanged({});
+    this.data.remark = "";
+    this.data.useIncomeTax = false;
+    this.data.termOfShipment = "";
     if (selectedBuyer) {
       this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
       if (selectedBuyer.type.toLowerCase() == "ekspor" || selectedBuyer.type.toLowerCase() == "export") {
@@ -220,17 +229,6 @@ export class DataForm {
         this.filterpayment = {
           "isExport": false
         };
-      }
-      if (!this.readOnly) {
-        this.data.agent = {};
-        this.agentChanged({});
-        this.data.termOfPayment = {};
-        this.termOfPaymentChanged({});
-        this.data.designMotive = {};
-        this.designMotiveChanged({});
-        this.data.remark = "";
-        this.data.useIncomeTax = false;
-        this.data.termOfShipment = "";
       }
     }
     console.log('buyer changed')
