@@ -1,6 +1,9 @@
 <template>
   <require from="./data-form"></require>
-  <data-form title="Detail Purchase Order External" read-only="true"></data-form> 
+  <data-form title="Detail Purchase Order External" read-only="true"></data-form>
+    <div class="btn-group pull-right">
+      <a click.delegate="unpost()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !isArriving && !data.isClosed">Unpost</a> 
+    </div>
 </template>
 
 

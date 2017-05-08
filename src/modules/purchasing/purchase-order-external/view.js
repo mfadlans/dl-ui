@@ -92,13 +92,13 @@ export class View {
     //     })
     // }
 
-    // unpost() {
-    //     this.service.unpost(this.poExId).then(result => {
-    //         this.cancelCallback(event);
-    //     }).catch(e => {
-    //         this.error = e;
-    //     })
-    // }
+    unpost() {
+        this.service.unpost(this.poExId).then(result => {
+            this.cancelCallback(event);
+        }).catch(e => {
+            this.error = e;
+        })
+    }
 
     close() {
         this.service.close(this.poExId).then(result => {

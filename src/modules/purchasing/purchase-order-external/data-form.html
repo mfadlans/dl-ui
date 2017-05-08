@@ -84,8 +84,19 @@
           value.bind="data.paymentDueDays"        
           error.bind="error.paymentDueDays"
           format="0" 
-          post-fix="hari" 
-          read-only.bind="data.paymentMethod !='CASH'"
+          post-fix="hari"
+          read-only.bind="true" 
+          if.bind="data.paymentMethod !='CASH'"
+        ></au-numeric>
+
+        <au-numeric                
+          label="Tempo Pembayaran"                
+          value.bind="data.paymentDueDays"        
+          error.bind="error.paymentDueDays"
+          format="0" 
+          post-fix="hari"
+          read-only.bind="readOnly" 
+          if.bind="data.paymentMethod =='CASH'"
         ></au-numeric>
 
         <au-autocomplete       

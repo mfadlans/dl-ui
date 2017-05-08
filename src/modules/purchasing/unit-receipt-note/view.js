@@ -38,13 +38,13 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    cancel(event) {
-        this.router.navigateToRoute('list');
-    }
-
-    // edit(event) {
-    //     this.router.navigateToRoute('edit', { id: this.data._id });
+    // cancel(event) {
+    //     this.router.navigateToRoute('list');
     // }
+
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data._id });
+    }
 
     // delete(event) {
     //     this.service.delete(this.data).then(result => {

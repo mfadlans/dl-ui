@@ -2,14 +2,15 @@
   <tr>
     <td class="col-sm-8">
       <au-autocomplete 
-                  value.bind="data.purchaseRequest.no" 
-                  error.bind="error.purchaseRequest.no"
+                  value.bind="data.purchaseRequest" 
+                  error.bind="error.purchaseRequest"
                   loader.bind="purchaseRequestLoader"
                   placeholder="cari purchase request" 
                   query.bind="purchaseRequestFilter"
                   key="no"
                   text="no"
-                  read-only.bind="options.readOnly">
+                  read-only.bind="options.readOnly"
+                  change.delegate="purchaseRequestChanged($event)">
         </au-autocomplete>
   </td>
     <td class="col-sm-2">
