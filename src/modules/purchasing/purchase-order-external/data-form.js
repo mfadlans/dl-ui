@@ -8,9 +8,6 @@ var VatLoader = require('../../../loader/vat-loader');
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly;
-    // @bindable prReadOnly = false;
-    // @bindable data = {};
-    // @bindable error = {};
     @bindable data;
     @bindable error;
     @bindable title;
@@ -26,10 +23,6 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    // if (this.data && this.data.supplier)
-    //         this.data.supplier.toString = function () {
-    //             return this.code + " - " + this.name;
-    //         };
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -45,36 +38,28 @@ export class DataForm {
       { header: "Nomor PR", value: "purchaseRequest.no" },
     ]
 
-    // constructor(bindingEngine, element) {
-    //     this.bindingEngine = bindingEngine;
-    //     this.element = element;
+
+    // addItem() {
+    //     this.data.items = this.data.items ? this.data.items : [];
+    //     this.data.items.push({ showDetails: false });
     // }
 
-    // @computedFrom("data._id")
-    // get isEdit() {
-    //     return (this.data._id || '').toString() != '';
+    // removeItem(item) {
+    //     var itemIndex = this.data.items.indexOf(item);
+    //     this.data.items.splice(itemIndex, 1);
     // }
-
-
-    addItem() {
-        this.data.items = this.data.items ? this.data.items : [];
-        this.data.items.push({ showDetails: false });
-    }
-
-    removeItem(item) {
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
-    }
 
 
     supplierChanged(e) {
-        var selectedSupplier = e.detail;
+        // var selectedSupplier = e.detail;
+        var selectedSupplier = this.data.supplier;
         if (selectedSupplier)
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
     }
 
     currencyChanged(e) {
-        var selectedCurrency = e.detail;
+        // var selectedCurrency = e.detail;
+        var selectedCurrency = this.data.currency;
         if (selectedCurrency) {
             var currencyRate = parseInt(selectedCurrency.rate ? selectedCurrency.rate : 1, 10);
             this.data.currencyRate = currencyRate;
@@ -97,23 +82,22 @@ export class DataForm {
     }
 
     vatChanged(e) {
-      if (this.data.vat)
-        this.data.vatId = this.data.vat._id ? this.data.vat._id : {};
-        // var selectedVat = e.detail;
-        // if (selectedVat) {
-        //     this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
-        //     this.data.useVat = true;
-        // }
-        // else {
-        //     this.data.vatRate = 0;
-        //     this.data.useVat = false;
-        // }
-        console.log('vat changed')
-        console.log(this.data.vat.rate);
+        var selectedVat = this.data.vat;
+        if (selectedVat) {
+            this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
+            // this.data.vatRate = this.data.vate.rate ? this.data.vat.rate : 0;
+            this.data.useVat = true;
+        }
+        else {
+            this.data.vatRate = 0;
+            this.data.useVat = false;
+        }
+        console.log(this.data)
     }
 
     useIncomeTaxChanged(e) {
-        var selectedUseIncomeTax = e.srcElement.checked || false;
+        // var selectedUseIncomeTax = e.srcElement.checked || false;
+        var selectedUseIncomeTax = this.data.useIncomeTax;
         if (!selectedUseIncomeTax) {
             for (var po of this.data.items) {
                 for (var poItem of po.items) {

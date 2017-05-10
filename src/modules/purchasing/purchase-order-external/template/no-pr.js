@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-var PurchaseRequestLoader = require('../../../../loader/purchase-request-loader');
+var PurchaseRequestLoader = require('../../../../loader/purchase-request-posted-loader');
 
 export class NoPurchaseRequest {
   // @bindable readOnly = false;
@@ -26,6 +26,7 @@ export class NoPurchaseRequest {
     {header: "Ket.", value: "remark"} ];
   
   activate(context) {
+    console.log(context)
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
@@ -38,6 +39,24 @@ export class NoPurchaseRequest {
   get purchaseRequestLoader() {
         return PurchaseRequestLoader;
     }
+
+  purchaseRequestChanged(e) {
+    console.log(this.data);
+  }
+
+
+  // purchaseRequestChanged(newValue) {
+  //   this.data.purchaseRequest = newValue;
+  //   if (this.data.purchaseRequest) {
+  //     var _item = [];
+  //     this.data.purchaseRequestId = this.data.purchaseRequest._id;
+  //     this.data.purchaseRequest.items.map((item) =>{
+  //       var _item = {};
+  //       _item.
+  //     })
+  //   }
+  // }
+
 
   // purchaseRequestChanged(newValue) {
   //   this.data.purchaseRequest = newValue;
