@@ -88,7 +88,7 @@ export class DataForm {
     }
     return this.pointSyst;
   }
-
+  
   @computedFrom("data.buyer")
   get buyerType() {
     this.ekspor = false;
@@ -171,6 +171,7 @@ export class DataForm {
     }
     console.log('term of payment changed')
   }
+
 
   comodityChanged(e) {
     // var selectedComodity = e.detail || {};

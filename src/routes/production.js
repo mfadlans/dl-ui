@@ -223,7 +223,7 @@ module.exports = [
         name: 'stock-movement-report',
         moduleId: './modules/production/finishing-printing/reports/stock-movement-report/index',
         nav: true,
-        title: 'Laporan Stock',
+        title: 'Laporan Stock Movement',
         auth: true,
         settings: {
             group: "production",
