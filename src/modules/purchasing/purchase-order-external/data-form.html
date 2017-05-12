@@ -85,7 +85,7 @@
           error.bind="error.paymentDueDays"
           format="0" 
           post-fix="hari"
-          read-only.bind="data.paymentMethod =='CASH'" 
+          read-only.bind="data.paymentMethod =='CASH' || readOnly" 
         ></au-numeric>
 
         <au-autocomplete       

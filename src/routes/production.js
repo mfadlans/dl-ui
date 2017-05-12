@@ -217,6 +217,19 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'finishing-printing/reports/stock-movement-report',
+        name: 'stock-movement-report',
+        moduleId: './modules/production/finishing-printing/reports/stock-movement-report/index',
+        nav: true,
+        title: 'Laporan Stock',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
     ]
 

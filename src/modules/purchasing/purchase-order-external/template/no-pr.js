@@ -7,7 +7,7 @@ var PurchaseRequestLoader = require('../../../../loader/purchase-request-posted-
 export class NoPurchaseRequest {
   // @bindable readOnly = false;
   // @bindable prReadOnly = false;
-  // @bindable purchaseRequest;
+  @bindable purchaseRequest;
   @bindable data;
   
 
@@ -40,22 +40,28 @@ export class NoPurchaseRequest {
         return PurchaseRequestLoader;
     }
 
-  purchaseRequestChanged(e) {
-    console.log(this.data);
-  }
-
-
-  // purchaseRequestChanged(newValue) {
-  //   this.data.purchaseRequest = newValue;
-  //   if (this.data.purchaseRequest) {
-  //     var _item = [];
-  //     this.data.purchaseRequestId = this.data.purchaseRequest._id;
-  //     this.data.purchaseRequest.items.map((item) =>{
-  //       var _item = {};
-  //       _item.
-  //     })
-  //   }
+  // purchaseRequestChanged(e) {
+  //   console.log(this.data);
+  //   // var _item = [];
+  //     // product.name = this.data.purchaseRequest.items.product.name;
+  //     // remark = this.data.purchaseRequest.items.remark;
   // }
+
+
+  purchaseRequestChanged(e) {
+    
+    if (this.data.purchaseRequest) {
+      // var _item = [];
+      var productName = [];
+      this.data.purchaseRequestId = this.data.purchaseRequest._id;
+      // this.data.productName = this.data.purchaseRequest.items.product;
+      this.data.purchaseRequest.items.map((item) =>{
+        var _item = {};
+        _item.productName = this.data.purchaseRequest.items.product;
+        _item.push(_item);
+      })
+    }console.log(this.data)
+  }
 
 
   // purchaseRequestChanged(newValue) {
